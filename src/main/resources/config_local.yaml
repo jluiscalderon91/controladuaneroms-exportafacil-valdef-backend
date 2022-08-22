@@ -1,0 +1,121 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 7106
+  adminConnectors:
+    - type: http
+      port: 17106
+  requestLog:
+    appenders: []
+serviceName: exportafacil-valdef-backend
+
+dataSources:   
+  # ===================================================================
+  # Datasources Oracle
+  # ===================================================================
+  - uniqueResourceName: dsprad1
+    jndiName: jdbc/dsprad1
+    url: jdbc:oracle:thin:ADUWEB/ADUWEB@bdprpp4:1551:PRPP4
+    driverClassName: oracle.jdbc.OracleDriver
+    minPoolSize: 10
+    maxPoolSize: 20
+    maxIdleTime: 60
+    borrowConnectionTimeout: 30
+    maintenanceInterval: 360
+    timeoutHealthCheckInMilliseconds: 2000
+    testQuery: "SELECT 1 FROM dual"
+    healthCheck: true
+  - uniqueResourceName: dcbdsigad
+    jndiName: jdbc/dcbdsigad
+    url: jdbc:oracle:thin:USWCONSU14/USWCONSU14@bdprpp11g:1552:prpp11g
+    driverClassName: oracle.jdbc.OracleDriver
+    minPoolSize: 10
+    maxPoolSize: 20
+    maxIdleTime: 60
+    borrowConnectionTimeout: 30
+    maintenanceInterval: 360
+    timeoutHealthCheckInMilliseconds: 2000
+    testQuery: "SELECT 1 FROM dual"
+    healthCheck: true
+  - uniqueResourceName: dsprtu1
+    jndiName: jdbc/dsprtu1
+    url: jdbc:oracle:thin:ADUWEB/ADUWEB@bdprpp1:1550:prpp1
+    driverClassName: oracle.jdbc.OracleDriver
+    minPoolSize: 10
+    maxPoolSize: 20
+    maxIdleTime: 60
+    borrowConnectionTimeout: 30
+    maintenanceInterval: 360
+    timeoutHealthCheckInMilliseconds: 2000
+    testQuery: "SELECT 1 FROM dual"
+    healthCheck: true
+  - uniqueResourceName: dsprta1
+    jndiName: jdbc/dsprta1
+    url: jdbc:oracle:thin:ADUWEB/ADUWEB@bdprpp1:1550:prpp1
+    driverClassName: oracle.jdbc.OracleDriver
+    minPoolSize: 10
+    maxPoolSize: 20
+    maxIdleTime: 60
+    borrowConnectionTimeout: 30
+    maintenanceInterval: 360
+    timeoutHealthCheckInMilliseconds: 2000
+    testQuery: "SELECT 1 FROM dual"
+    healthCheck: true
+  - uniqueResourceName: dsprpu1
+    jndiName: jdbc/dsprpu1
+    url: jdbc:oracle:thin:ADUWEB/ADUWEB@bdprpp1:1550:prpp1
+    driverClassName: oracle.jdbc.OracleDriver
+    minPoolSize: 10
+    maxPoolSize: 20
+    maxIdleTime: 60
+    borrowConnectionTimeout: 30
+    maintenanceInterval: 360
+    timeoutHealthCheckInMilliseconds: 2000
+    testQuery: "SELECT 1 FROM dual"
+    healthCheck: true
+  - uniqueResourceName: dsprde1
+    jndiName: jdbc/dsprde1
+    url: jdbc:oracle:thin:ADUWEB/ADUWEB@bdprpp1:1550:prpp1
+    driverClassName: oracle.jdbc.OracleDriver
+    minPoolSize: 10
+    maxPoolSize: 20
+    maxIdleTime: 60
+    borrowConnectionTimeout: 30
+    maintenanceInterval: 360
+    timeoutHealthCheckInMilliseconds: 2000
+    testQuery: "SELECT 1 FROM dual"
+    healthCheck: true
+        
+logging:
+  level: INFO
+  loggers:
+    io.dropwizard: INFO
+    org.eclipse: INFO
+    org.hibernate: INFO
+    org.apache.camel: INFO
+    com.mchange: INFO
+    com.netflix: INFO
+    org.jboss.weld.Version: INFO
+    org.jboss.weld: INFO
+    io.dropwizard.jersey.DropwizardResourceConfig: INFO
+    io.dropwizard.server.ServerFactory: INFO
+    org.glassfish.jersey.server.ServerRuntime: FATAL
+    org.jboss.weld.environment.servlet.logging: INFO
+    com.atomikos.jdbc.AtomikosConnectionProxy: ERROR
+    com.circulosiete.metrics.health.hystrix: INFO
+    pe.gob.sunat.controladuanero.prevencion.cuentacorrienteimpo.archivo: INFO
+  appenders:
+    - type: file
+      currentLogFilename: /logs//apps//controladuaneroms-exportafacil-valdef-backend//controladuaneroms-exportafacil-valdef-backend.log
+      archivedLogFilenamePattern: /logs//apps//controladuaneroms-exportafacil-valdef-backend//controladuaneroms-exportafacil-valdef-backend-%d.log.gz
+      archivedFileCount: 5
+      timeZone: GMT-05:00
+    - type: console
+      timeZone: EST
+      
+# ===================================================================
+# rutas
+# ===================================================================
+urlBuscarDeclaracion : "http://api.sunat.peru/v1/controladuanero/ingreso/declaracion/e/declaracionesaduaneras/"
+urlWsConsultaCatalogo : "http://api.sunat.peru/v1/estrategico/aduanero/mantmodulo/e/catalogos/B20/datoscatalogos/"   
+      

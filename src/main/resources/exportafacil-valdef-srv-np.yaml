@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: exportafacil-valdef-srv-np
+  labels:
+    name: exportafacil-valdef-backend
+spec:
+  type: NodePort
+  ports:
+    - port: 7106
+      targetPort: 7106
+      nodePort: 30106
+      protocol: TCP
+      name: app
+    - port: 17106
+      targetPort: 17106
+      nodePort: 31106
+      protocol: TCP
+      name: admin
+  selector:
+    name: exportafacil-valdef-backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: exportafacil-valdef-backend
+  labels:
+    name: exportafacil-valdef-backend
+spec:
+  ports:
+  - port: 7106
+    targetPort: 7106
+    protocol: TCP
+    name: app
+  selector:
+    name: exportafacil-valdef-backend

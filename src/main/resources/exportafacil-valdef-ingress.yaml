@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: exportafacil-valdef-backend
+  labels:
+    name: exportafacil-valdef-backend
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+  - host: aduanas.k8s.sunat.peru
+    http:
+      paths:
+      - path: /v1/despaduanero/exportafacil/e/acta
+        backend:
+          serviceName: exportafacil-valdef-backend
+          servicePort: 7106

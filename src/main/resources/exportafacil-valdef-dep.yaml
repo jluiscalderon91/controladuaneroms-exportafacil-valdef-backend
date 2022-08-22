@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: exportafacil-valdef-backend
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         name: exportafacil-valdef-backend
+   template:
+      metadata:
+         labels:
+            name: exportafacil-valdef-backend
+      spec:
+         imagePullSecrets:
+         -  name: registrysunat
+         containers:
+         -  image: integracion1-dr-local.artifactory.insi.sunat.peru/microservices/controladuaneroms-exportafacil-valdef-backend:1.1.71-1
+            name: exportafacil-valdef-backend
+            imagePullPolicy: Always
+            resources:
+               requests:
+                  memory: 512Mi
+                  cpu: 400m
+               limits:
+                  memory: 1024Mi
+                  cpu: 500m
+            env:
+            -  name: URL_CNX_DSPRAD1
+               valueFrom:
+                  secretKeyRef:
+                     name: exportafacil-valdef-secrets
+                     key: URL_CNX_DSPRAD1
+            -  name: URL_CNX_DCBDSIGAD
+               valueFrom:
+                  secretKeyRef:
+                     name: exportafacil-valdef-secrets
+                     key: URL_CNX_DCBDSIGAD
+            -  name: URL_CNX_DSPRTU1
+               valueFrom:
+                  secretKeyRef:
+                     name: exportafacil-valdef-secrets
+                     key: URL_CNX_DSPRTU1
+            -  name: URL_CNX_DSPRTA1
+               valueFrom:
+                  secretKeyRef:
+                     name: exportafacil-valdef-secrets
+                     key: URL_CNX_DSPRTA1
+            -  name: URL_CNX_DSPRPU1
+               valueFrom:
+                  secretKeyRef:
+                     name: exportafacil-valdef-secrets
+                     key: URL_CNX_DSPRPU1
+            -  name: URL_CNX_DSPRDE1
+               valueFrom:
+                  secretKeyRef:
+                     name: exportafacil-valdef-secrets
+                     key: URL_CNX_DSPRDE1
+            -  name: logginglevel
+               valueFrom:
+                  configMapKeyRef:
+                     name: exportafacil-valdef-configmap
+                     key: logginglevel
+            -  name: loggingloggerssunat
+               valueFrom:
+                  configMapKeyRef:
+                     name: exportafacil-valdef-configmap
+                     key: loggingloggerssunat
+            volumeMounts:
+            -  mountPath: /config
+               name: configyaml-configmap
+            -  mountPath: /etc/localtime
+               name: tz-config
+            ports:
+            -  containerPort: 7106
+               protocol: TCP
+            -  containerPort: 17106
+               protocol: TCP
+            livenessProbe:
+               httpGet:
+                  path: /healthcheck
+                  port: 17106
+               initialDelaySeconds: 60
+               periodSeconds: 60
+               timeoutSeconds: 30
+            readinessProbe:
+               httpGet:
+                  path: /healthcheck
+                  port: 17106
+               initialDelaySeconds: 60
+               periodSeconds: 60
+               timeoutSeconds: 30
+         hostAliases:
+# API SUNAT PERU
+         -  ip: 192.168.56.106
+            hostnames:
+            - "api.sunat.peru"
+         volumes:
+         -  name: configyaml-configmap
+            configMap:
+               name: exportafacil-valdef-configmap
+               items:
+               -  key: configyaml
+                  path: config.yaml
+         -  name: tz-config
+            hostPath:
+               path: /etc/localtime
