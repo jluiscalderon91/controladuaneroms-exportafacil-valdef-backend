@@ -5,38 +5,8 @@
                  http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
    version="2.0">
 
-	<persistence-unit name="dsprad1" transaction-type="RESOURCE_LOCAL">
-		<non-jta-data-source>jdbc/dsprad1</non-jta-data-source>
-		<class>pe.gob.sunat.controladuanero.prevencion.cuentacorrienteimpo.valdpmn.domain.PuestoControl</class>
-		<class>pe.gob.sunat.controladuanero.prevencion.cuentacorrienteimpo.valdpmn.domain.Ubigeo</class>
-		<class>pe.gob.sunat.controladuanero.prevencion.cuentacorrienteimpo.valdpmn.domain.Empredti</class>
+	<persistence-unit name="bdsigad" transaction-type="RESOURCE_LOCAL">
+		<non-jta-data-source>jdbc/bdsigad</non-jta-data-source>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 	</persistence-unit>
-	
-	<persistence-unit name="dcbdsigad" transaction-type="RESOURCE_LOCAL">
-		<non-jta-data-source>jdbc/dcbdsigad</non-jta-data-source>
-		<class>pe.gob.sunat.controladuanero.prevencion.cuentacorrienteimpo.valdpmn.domain.Vehiculo</class>
-		<class>pe.gob.sunat.controladuanero.prevencion.cuentacorrienteimpo.valdpmn.domain.DetDeclara</class>
-		<exclude-unlisted-classes>false</exclude-unlisted-classes>
-	</persistence-unit>
-
-	<persistence-unit name="dsprtu1" transaction-type="RESOURCE_LOCAL">
-		<non-jta-data-source>jdbc/dsprtu1</non-jta-data-source>
-		<exclude-unlisted-classes>false</exclude-unlisted-classes>
-	</persistence-unit>
-	
-	<persistence-unit name="dsprta1" transaction-type="RESOURCE_LOCAL">
-		<non-jta-data-source>jdbc/dsprta1</non-jta-data-source>
-		<exclude-unlisted-classes>false</exclude-unlisted-classes>
-	</persistence-unit>
-	
-	<persistence-unit name="dsprpu1" transaction-type="RESOURCE_LOCAL">
-		<non-jta-data-source>jdbc/dsprpu1</non-jta-data-source>
-		<exclude-unlisted-classes>false</exclude-unlisted-classes>
-	</persistence-unit>
-	
-	<persistence-unit name="dsprde1" transaction-type="RESOURCE_LOCAL">
-		<non-jta-data-source>jdbc/dsprde1</non-jta-data-source>
-		<exclude-unlisted-classes>false</exclude-unlisted-classes>
-	</persistence-unit>		
 </persistence>

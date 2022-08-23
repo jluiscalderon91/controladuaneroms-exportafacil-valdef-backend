@@ -13,76 +13,16 @@ dataSources:
   # ===================================================================
   # Datasources Oracle
   # ===================================================================
-  - uniqueResourceName: dsprad1
-    jndiName: jdbc/dsprad1
-    url: jdbc:oracle:thin:ADUWEB/ADUWEB@bdprpp4:1551:PRPP4
+  - uniqueResourceName: bdsigad
+    jndiName: jdbc/bdsigad
+    url: jdbc:oracle:thin:USAMTODO/lomaximo@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=172.18.1.18)(PORT=1552))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=prpp11g.sunat.gob.pe)))
     driverClassName: oracle.jdbc.OracleDriver
-    minPoolSize: 10
-    maxPoolSize: 20
+    minPoolSize: 0
+    maxPoolSize: 100
     maxIdleTime: 60
-    borrowConnectionTimeout: 30
-    maintenanceInterval: 360
-    timeoutHealthCheckInMilliseconds: 2000
-    testQuery: "SELECT 1 FROM dual"
-    healthCheck: true
-  - uniqueResourceName: dcbdsigad
-    jndiName: jdbc/dcbdsigad
-    url: jdbc:oracle:thin:USWCONSU14/USWCONSU14@bdprpp11g:1552:prpp11g
-    driverClassName: oracle.jdbc.OracleDriver
-    minPoolSize: 10
-    maxPoolSize: 20
-    maxIdleTime: 60
-    borrowConnectionTimeout: 30
-    maintenanceInterval: 360
-    timeoutHealthCheckInMilliseconds: 2000
-    testQuery: "SELECT 1 FROM dual"
-    healthCheck: true
-  - uniqueResourceName: dsprtu1
-    jndiName: jdbc/dsprtu1
-    url: jdbc:oracle:thin:ADUWEB/ADUWEB@bdprpp1:1550:prpp1
-    driverClassName: oracle.jdbc.OracleDriver
-    minPoolSize: 10
-    maxPoolSize: 20
-    maxIdleTime: 60
-    borrowConnectionTimeout: 30
-    maintenanceInterval: 360
-    timeoutHealthCheckInMilliseconds: 2000
-    testQuery: "SELECT 1 FROM dual"
-    healthCheck: true
-  - uniqueResourceName: dsprta1
-    jndiName: jdbc/dsprta1
-    url: jdbc:oracle:thin:ADUWEB/ADUWEB@bdprpp1:1550:prpp1
-    driverClassName: oracle.jdbc.OracleDriver
-    minPoolSize: 10
-    maxPoolSize: 20
-    maxIdleTime: 60
-    borrowConnectionTimeout: 30
-    maintenanceInterval: 360
-    timeoutHealthCheckInMilliseconds: 2000
-    testQuery: "SELECT 1 FROM dual"
-    healthCheck: true
-  - uniqueResourceName: dsprpu1
-    jndiName: jdbc/dsprpu1
-    url: jdbc:oracle:thin:ADUWEB/ADUWEB@bdprpp1:1550:prpp1
-    driverClassName: oracle.jdbc.OracleDriver
-    minPoolSize: 10
-    maxPoolSize: 20
-    maxIdleTime: 60
-    borrowConnectionTimeout: 30
-    maintenanceInterval: 360
-    timeoutHealthCheckInMilliseconds: 2000
-    testQuery: "SELECT 1 FROM dual"
-    healthCheck: true
-  - uniqueResourceName: dsprde1
-    jndiName: jdbc/dsprde1
-    url: jdbc:oracle:thin:ADUWEB/ADUWEB@bdprpp1:1550:prpp1
-    driverClassName: oracle.jdbc.OracleDriver
-    minPoolSize: 10
-    maxPoolSize: 20
-    maxIdleTime: 60
-    borrowConnectionTimeout: 30
-    maintenanceInterval: 360
-    timeoutHealthCheckInMilliseconds: 2000
+    borrowConnectionTimeout: 60
+    maintenanceInterval: 120
+    timeoutHealthCheckInMilliseconds: 10000
     testQuery: "SELECT 1 FROM dual"
     healthCheck: true
         
@@ -103,7 +43,7 @@ logging:
     org.jboss.weld.environment.servlet.logging: INFO
     com.atomikos.jdbc.AtomikosConnectionProxy: ERROR
     com.circulosiete.metrics.health.hystrix: INFO
-    pe.gob.sunat.controladuanero.prevencion.cuentacorrienteimpo.archivo: INFO
+    pe.gob.sunat.controladuaneroms.exportafacil.valdef.archivo: INFO
   appenders:
     - type: file
       currentLogFilename: /logs//apps//controladuaneroms-exportafacil-valdef-backend//controladuaneroms-exportafacil-valdef-backend.log

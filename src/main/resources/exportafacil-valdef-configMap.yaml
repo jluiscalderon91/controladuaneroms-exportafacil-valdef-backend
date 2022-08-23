@@ -23,9 +23,9 @@ data:
            # ===================================================================
            # Datasources Oracle
            # ===================================================================
-           - uniqueResourceName: dsprad1
-             jndiName: jdbc/dsprad1
-             url: ${URL_CNX_DSPRAD1}
+           - uniqueResourceName: bdsigad
+             jndiName: jdbc/bdsigad
+             url: ${URL_CNX_ORACLE_BDSIGAD}
              driverClassName: oracle.jdbc.OracleDriver
              minPoolSize: 10
              maxPoolSize: 20
@@ -34,66 +34,6 @@ data:
              maintenanceInterval: 360
              timeoutHealthCheckInMilliseconds: 30000
              testQuery: SELECT 1 FROM dual
-             healthCheck: true
-           - uniqueResourceName: dcbdsigad
-             jndiName: jdbc/dcbdsigad
-             url: ${URL_CNX_DCBDSIGAD}
-             driverClassName: oracle.jdbc.OracleDriver
-             minPoolSize: 10
-             maxPoolSize: 20
-             maxIdleTime: 60
-             borrowConnectionTimeout: 30
-             maintenanceInterval: 360
-             timeoutHealthCheckInMilliseconds: 30000
-             testQuery: SELECT 1 FROM dual
-             healthCheck: true
-           - uniqueResourceName: dsprtu1
-             jndiName: jdbc/dsprtu1
-             url: ${URL_CNX_DSPRTU1}
-             driverClassName: oracle.jdbc.OracleDriver
-             minPoolSize: 10
-             maxPoolSize: 20
-             maxIdleTime: 60
-             borrowConnectionTimeout: 30
-             maintenanceInterval: 360
-             timeoutHealthCheckInMilliseconds: 30000
-             testQuery: SELECT 1 FROM dual
-             healthCheck: true
-           - uniqueResourceName: dsprta1
-             jndiName: jdbc/dsprta1
-             url: ${URL_CNX_DSPRTA1}
-             driverClassName: oracle.jdbc.OracleDriver
-             minPoolSize: 10
-             maxPoolSize: 20
-             maxIdleTime: 60
-             borrowConnectionTimeout: 30
-             maintenanceInterval: 360
-             timeoutHealthCheckInMilliseconds: 30000
-             testQuery: SELECT 1 FROM dual
-             healthCheck: true
-           - uniqueResourceName: dsprpu1
-             jndiName: jdbc/dsprpu1
-             url: ${URL_CNX_DSPRPU1}
-             driverClassName: oracle.jdbc.OracleDriver
-             minPoolSize: 10
-             maxPoolSize: 20
-             maxIdleTime: 60
-             borrowConnectionTimeout: 30
-             maintenanceInterval: 360
-             timeoutHealthCheckInMilliseconds: 30000
-             testQuery: "SELECT 1 FROM dual"
-             healthCheck: true
-           - uniqueResourceName: dsprde1
-             jndiName: jdbc/dsprde1
-             url: ${URL_CNX_DSPRDE1}
-             driverClassName: oracle.jdbc.OracleDriver
-             minPoolSize: 10
-             maxPoolSize: 20
-             maxIdleTime: 60
-             borrowConnectionTimeout: 30
-             maintenanceInterval: 360
-             timeoutHealthCheckInMilliseconds: 30000
-             testQuery: "SELECT 1 FROM dual"
              healthCheck: true
          logging:
            level: ${logginglevel}
@@ -124,5 +64,4 @@ data:
          # ===================================================================
          # rutas
          # ===================================================================
-         urlBuscarDeclaracion : http://api.sunat.peru/v1/controladuanero/ingreso/declaracion/e/declaracionesaduaneras/
-         urlWsConsultaCatalogo : http://api.sunat.peru/v1/estrategico/aduanero/mantmodulo/e/catalogos/B20/datoscatalogos/
+         urlConsultaDeclaracion : http://api.sunat.peru/v1/despaduanero/exportafacil/e/acta/

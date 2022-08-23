@@ -26,36 +26,11 @@ spec:
                   memory: 1024Mi
                   cpu: 500m
             env:
-            -  name: URL_CNX_DSPRAD1
+            -  name: URL_CNX_ORACLE_BDSIGAD
                valueFrom:
                   secretKeyRef:
                      name: exportafacil-valdef-secrets
-                     key: URL_CNX_DSPRAD1
-            -  name: URL_CNX_DCBDSIGAD
-               valueFrom:
-                  secretKeyRef:
-                     name: exportafacil-valdef-secrets
-                     key: URL_CNX_DCBDSIGAD
-            -  name: URL_CNX_DSPRTU1
-               valueFrom:
-                  secretKeyRef:
-                     name: exportafacil-valdef-secrets
-                     key: URL_CNX_DSPRTU1
-            -  name: URL_CNX_DSPRTA1
-               valueFrom:
-                  secretKeyRef:
-                     name: exportafacil-valdef-secrets
-                     key: URL_CNX_DSPRTA1
-            -  name: URL_CNX_DSPRPU1
-               valueFrom:
-                  secretKeyRef:
-                     name: exportafacil-valdef-secrets
-                     key: URL_CNX_DSPRPU1
-            -  name: URL_CNX_DSPRDE1
-               valueFrom:
-                  secretKeyRef:
-                     name: exportafacil-valdef-secrets
-                     key: URL_CNX_DSPRDE1
+                     key: URL_CNX_ORACLE_BDSIGAD
             -  name: logginglevel
                valueFrom:
                   configMapKeyRef:

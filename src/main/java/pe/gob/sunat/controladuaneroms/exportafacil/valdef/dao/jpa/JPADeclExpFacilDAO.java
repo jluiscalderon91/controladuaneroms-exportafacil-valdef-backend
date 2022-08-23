@@ -25,8 +25,8 @@ public class JPADeclExpFacilDAO extends AbstractDao<DeclExpFacil, String> implem
 	private UtilLog utilLog;
 	
 	@Inject
-	@Named("dsprad1")
-	protected EntityManager dsprad1;
+	@Named("bdsigad")
+	protected EntityManager bdsigad;
 	
 	@Override
 	public List<DeclExpFacil> listarActas(String codAduana, String placa) {
@@ -38,7 +38,7 @@ public class JPADeclExpFacilDAO extends AbstractDao<DeclExpFacil, String> implem
 		List<DeclExpFacil> resultado = new java.util.ArrayList<>();
 		
 		try {
-			Query query = dsprad1.createNativeQuery(sql.toString(), DeclExpFacil.class);
+			Query query = bdsigad.createNativeQuery(sql.toString(), DeclExpFacil.class);
 			query.setParameter(1, codAduana);
 			query.setParameter(1, placa);
 			resultado = findByQuery(query);
@@ -51,7 +51,7 @@ public class JPADeclExpFacilDAO extends AbstractDao<DeclExpFacil, String> implem
 
 	@Override
 	public EntityManager buildEntityManager() {
-		return dsprad1;
+		return bdsigad;
 	}
 
 	@Override
