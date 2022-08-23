@@ -116,6 +116,4 @@ logging:
 # ===================================================================
 # rutas
 # ===================================================================
-urlBuscarDeclaracion : "http://api.sunat.peru/v1/controladuanero/ingreso/declaracion/e/declaracionesaduaneras/"
-urlWsConsultaCatalogo : "http://api.sunat.peru/v1/estrategico/aduanero/mantmodulo/e/catalogos/B20/datoscatalogos/"   
-      
+urlConsultaDeclaracion : "http://api.sunat.peru/v1/despaduanero/exportafacil/e/acta/"

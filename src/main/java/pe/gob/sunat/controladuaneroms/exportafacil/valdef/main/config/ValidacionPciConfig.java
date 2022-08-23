@@ -1,7 +1,7 @@
 /***********************************************************************
- * Module:  ValidacionDpmnConfig.java
+ * Module:  ValidacionPciConfig.java
  * Author:  jvillavicencio
- * Purpose: Defines the Class ValidacionDpmnConfig
+ * Purpose: Defines the Class ValidacionPciConfig
  ***********************************************************************/
 
 package pe.gob.sunat.controladuaneroms.exportafacil.valdef.main.config;
@@ -12,9 +12,7 @@ public class ValidacionPciConfig extends MicroserviceConfig {
 	
 	private static ValidacionPciConfig config;
 	
-	private String urlBuscarDeclaracion = "";
-	
-	private String urlWsConsultaCatalogo ="";
+	private String urlConsultaDeclaracion = "";
 	
 	public static ValidacionPciConfig getConfig() {
 		return config;
@@ -25,13 +23,12 @@ public class ValidacionPciConfig extends MicroserviceConfig {
 	}
 
 
-
-	public String getUrlWsConsultaCatalogo() {
-		return urlWsConsultaCatalogo;
+	public String getUrlConsultaDeclaracion() {
+		return urlConsultaDeclaracion;
 	}
 
-	public void setUrlWsConsultaCatalogo(String urlWsConsultaCatalogo) {
-		this.urlWsConsultaCatalogo = urlWsConsultaCatalogo;
+	public void setUrlConsultaDeclaracion(String urlConsultaDeclaracion) {
+		this.urlConsultaDeclaracion = urlConsultaDeclaracion;
 	}
 	
 	

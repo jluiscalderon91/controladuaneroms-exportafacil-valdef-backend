@@ -1,15 +1,16 @@
 buildscript {
   repositories {
     maven {
-        url "${sunatPUrepo}libs-release"
-		
-		credentials {
-			username = "${sunatPUrepoUser}"
-			password = "${sunatPUrepoPassword}"
-        }
-    }    
-  }  
-  
+      url "${sunatPUrepo}libs-release"
+
+      credentials {
+        username = "${sunatPUrepoUser}"
+        password = "${sunatPUrepoPassword}"
+      }
+    }
+    mavenLocal()
+  }
+
   dependencies {
     classpath 'com.circulosiete.dev.plugin.ms:gen-ms-dev-plugin:0.1.128'
     classpath('org.codehaus.groovy.modules.http-builder:http-builder:0.6') {
@@ -24,21 +25,21 @@ apply plugin: 'com.circulosiete.dev.plugin.ms'
 
 mainClassName = 'pe.gob.sunat.controladuaneroms.exportafacil.valdef.main.ValidacionPciApplication'
 
-  repositories {
-    maven {
-        url "${sunatPUrepo}libs-release"
-		
-		credentials {
-			username = "${sunatPUrepoUser}"
-			password = "${sunatPUrepoPassword}"
-        }
-		
-    }    
-  }  
+repositories {
+  maven {
+    url "${sunatPUrepo}libs-release"
 
+    credentials {
+      username = "${sunatPUrepoUser}"
+      password = "${sunatPUrepoPassword}"
+    }
+
+  }
+  mavenLocal()
+}
 dependencies {
   //ultimas versiones de dropwizard  
-  ['views','views-freemarker','client'].each {
+  ['views', 'views-freemarker', 'client'].each {
     compile "io.dropwizard:dropwizard-${it}:1.3.14"
   }
   //framework
@@ -107,9 +108,9 @@ class PromoteTask extends DefaultTask {
     http.request(POST) {
       requestContentType = JSON
       body = [
-        targetRepo      : targetRepo,
-        dockerRepository: dockerRepository,
-        tag             : tag, copy: copy]
+              targetRepo      : targetRepo,
+              dockerRepository: dockerRepository,
+              tag             : tag, copy: copy]
 
       response.success = { resp ->
         println "POST response status: ${resp.statusLine}"
@@ -153,79 +154,79 @@ ssh.settings {
 }
 
 remotes {
-	def e = System.getenv()
+  def e = System.getenv()
 
   integracion {
     host = e['bamboo_deployDesaK8SADUANASS1A']
     user = e['bamboo_deployDesaK8SADUANASS1Username']
     password = e['bamboo_deployDesaK8SADUANASS1Password']
-  }  
+  }
   calidad1A {
-    host = e['bamboo_deployQAK8SADUANASS1A'] 
-    user =   e['bamboo_deployQAK8SADUANASS1Username']
+    host = e['bamboo_deployQAK8SADUANASS1A']
+    user = e['bamboo_deployQAK8SADUANASS1Username']
     password = e['bamboo_deployQAK8SADUANASS1Password']
-  }  
+  }
   produccion1A {
-    host =  e['bamboo_deployProdK8SADUANASS1A']
-    user =   e['bamboo_deployProdK8SADUANASS1Username'] 
+    host = e['bamboo_deployProdK8SADUANASS1A']
+    user = e['bamboo_deployProdK8SADUANASS1Username']
     password = e['bamboo_deployProdK8SADUANASS1Password']
   }
   produccion1B {
-    host =  e['bamboo_deployProdK8SADUANASS1B']
-    user =   e['bamboo_deployProdK8SADUANASS1Username'] 
+    host = e['bamboo_deployProdK8SADUANASS1B']
+    user = e['bamboo_deployProdK8SADUANASS1Username']
     password = e['bamboo_deployProdK8SADUANASS1Password']
   }
   produccion1C {
-    host =  e['bamboo_deployProdK8SADUANASS1C']
-    user =   e['bamboo_deployProdK8SADUANASS1Username'] 
+    host = e['bamboo_deployProdK8SADUANASS1C']
+    user = e['bamboo_deployProdK8SADUANASS1Username']
     password = e['bamboo_deployProdK8SADUANASS1Password']
   }
   produccion2A {
-    host =  e['bamboo_deployProdK8SADUANASS2A']
-    user =   e['bamboo_deployProdK8SADUANASS2Username'] 
+    host = e['bamboo_deployProdK8SADUANASS2A']
+    user = e['bamboo_deployProdK8SADUANASS2Username']
     password = e['bamboo_deployProdK8SADUANASS2Password']
   }
   produccion2B {
-    host =  e['bamboo_deployProdK8SADUANASS2B']
-    user =   e['bamboo_deployProdK8SADUANASS2Username'] 
+    host = e['bamboo_deployProdK8SADUANASS2B']
+    user = e['bamboo_deployProdK8SADUANASS2Username']
     password = e['bamboo_deployProdK8SADUANASS2Password']
   }
   produccion2C {
-    host =  e['bamboo_deployProdK8SADUANASS2C']
-    user =   e['bamboo_deployProdK8SADUANASS2Username'] 
+    host = e['bamboo_deployProdK8SADUANASS2C']
+    user = e['bamboo_deployProdK8SADUANASS2Username']
     password = e['bamboo_deployProdK8SADUANASS2Password']
   }
 }
 
-def despliegue(Object master, int numero, int site, String repoArtifactory) {  
- boolean exito=false;  
-	try {
-        ssh.run {
-            session(master) {
-                def result = execute "./start-microservice.sh $deploymentName $deploymentName  $projectName $version "+repoArtifactory
-                println "Resultado despligue:  " + result			   
-            }
-        }
-		exito=true;
-    } catch (Exception e) {
-        if (!System.getenv().TRAVIS) {
-            System.err.println "** SSH error: ${e.message} - some tests will fail **"
-           
-        }
-		if(numero==3 ){
-			return e;
-		}
+def despliegue(Object master, int numero, int site, String repoArtifactory) {
+  boolean exito = false;
+  try {
+    ssh.run {
+      session(master) {
+        def result = execute "./start-microservicens.sh $deploymentName $deploymentName  $projectName $version " + repoArtifactory + " $K8sNamespace"
+        println "Resultado despligue:  " + result
+      }
     }
-   return exito;
+    exito = true;
+  } catch (Exception e) {
+    if (!System.getenv().TRAVIS) {
+      System.err.println "** SSH error: ${e.message} - some tests will fail **"
+
+    }
+    if (numero == 3) {
+      return e;
+    }
+  }
+  return exito;
 }
 
 task setNewPublishDockerImageIntegracion {
   doLast {
     ssh.run {
-      session(remotes.integracion) {      
+      session(remotes.integracion) {
         execute "kubectl apply -f microservices/$deploymentName --record"
-        execute "kubectl set image deployments/$deploymentName $deploymentName=integracion1-dr-local.artifactory.insi.sunat.peru/microservices/$projectName:$version"
-      }      
+        execute "kubectl set image deployments/$deploymentName $deploymentName=integracion1-dr-local.artifactory.insi.sunat.peru/microservices/$projectName:$version -n $K8sNamespace"
+      }
     }
   }
 }
@@ -234,7 +235,7 @@ task setNewDockerImageIntegracion {
   doLast {
     ssh.run {
       session(remotes.integracion) {
-        execute "kubectl set image deployments/$deploymentName $deploymentName=integracion1-dr-local.artifactory.insi.sunat.peru/microservices/$projectName:$version"
+        execute "kubectl set image deployments/$deploymentName $deploymentName=integracion1-dr-local.artifactory.insi.sunat.peru/microservices/$projectName:$version -n $K8sNamespace"
       }
     }
   }
@@ -242,56 +243,56 @@ task setNewDockerImageIntegracion {
 
 task setNewDockerImageCalidad {
   doLast {
-    	String repo="calidad1-dr-local.artifactory.insi.sunat.peru"
-		boolean exito;
-		Object site1Error=null;
-		
-		site1Error = despliegue(remotes.calidad1A,1,1,repo);
-		
-		if(site1Error!=null && site1Error !=true){
-			throw site1Error;
-		}
+    String repo = "calidad1-dr-local.artifactory.insi.sunat.peru"
+    boolean exito;
+    Object site1Error = null;
+
+    site1Error = despliegue(remotes.calidad1A, 1, 1, repo);
+
+    if (site1Error != null && site1Error != true) {
+      throw site1Error;
+    }
   }
 }
 
 task setNewDockerImageProduccion {
   doLast {
-   		String repo="produccion1-dr-local.artifactory.insi.sunat.peru"
-        boolean exito = despliegue(remotes.produccion1A,1,1,repo)
-        Object site1Error=null
-        Object site2Error=null
-        if(!exito){
-            exito = despliegue(remotes.produccion1B,2,1,repo)
-            if(!exito){
-                site1Error = despliegue(remotes.produccion1C,3,1,repo)
-            }
-        }
-        exito = despliegue(remotes.produccion2A,1,2,repo)
-        if(!exito){
-            exito = despliegue(remotes.produccion2B,2,2,repo)
-            if(!exito){
-                site2Error = despliegue(remotes.produccion2C,3,2,repo)
-            }
-        }
-        if(site1Error!=null && site1Error != true){
-            throw site1Error
-        }
-        if(site2Error!=null && site2Error !=true){
-            throw site2Error
-        }
+    String repo = "produccion1-dr-local.artifactory.insi.sunat.peru"
+    boolean exito = despliegue(remotes.produccion1A, 1, 1, repo)
+    Object site1Error = null
+    Object site2Error = null
+    if (!exito) {
+      exito = despliegue(remotes.produccion1B, 2, 1, repo)
+      if (!exito) {
+        site1Error = despliegue(remotes.produccion1C, 3, 1, repo)
+      }
+    }
+    exito = despliegue(remotes.produccion2A, 1, 2, repo)
+    if (!exito) {
+      exito = despliegue(remotes.produccion2B, 2, 2, repo)
+      if (!exito) {
+        site2Error = despliegue(remotes.produccion2C, 3, 2, repo)
+      }
+    }
+    if (site1Error != null && site1Error != true) {
+      throw site1Error
+    }
+    if (site2Error != null && site2Error != true) {
+      throw site2Error
+    }
   }
 }
-  
-  task setRollbackDockerIntegracion {
+
+task setRollbackDockerIntegracion {
   doLast {
     ssh.run {
       session(remotes.integracion) {
         execute "kubectl rollout undo deployments $deploymentName"
-      }      
+      }
     }
   }
 }
- 
+
 task setRollbackDockerCalidad {
   doLast {
     ssh.run {
@@ -301,7 +302,7 @@ task setRollbackDockerCalidad {
     }
   }
 }
- 
+
 task setRollbackDockerProduccion {
   doLast {
     ssh.run {
@@ -313,4 +314,7 @@ task setRollbackDockerProduccion {
       }
     }
   }
+}
+sourceSets {
+  main.output.resourcesDir = main.java.outputDir
 }

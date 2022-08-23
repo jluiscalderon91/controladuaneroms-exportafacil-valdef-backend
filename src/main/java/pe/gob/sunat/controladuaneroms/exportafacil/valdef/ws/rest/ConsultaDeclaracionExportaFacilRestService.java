@@ -23,7 +23,39 @@ import java.util.List;
 public class ConsultaDeclaracionExportaFacilRestService extends PciAbstractRest {
 	
 	private static final String UTF_8 = "utf-8";
-	
+
+	@GET
+	@Path("/e/prueba")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response prueba() {
+
+		List<MensajeBean> lstMensajesValidacion = new ArrayList<>();
+
+		try {
+
+			MensajeBean mensaje = new MensajeBean();
+			mensaje.setCod(1);
+			mensaje.setMsg("Mensaje de prueba del sistema  VALDEF");
+
+			lstMensajesValidacion.add(mensaje);
+
+			return Response.status(COD_ERROR_VALIDACION).entity(lstMensajesValidacion)
+					.type(MediaType.APPLICATION_JSON_TYPE.withCharset(UTF_8)).build();
+
+		} catch( Exception ex ) {
+			utilLog.imprimirLog(ConstantesUtils.LEVEL_ERROR, "Error al consultar las actas", ex.getStackTrace());
+			MensajeBean mensaje = new MensajeBean();
+			mensaje.setCod(1);
+
+			lstMensajesValidacion.clear();
+			lstMensajesValidacion.add(mensaje);
+
+			mensaje.setMsg("Ha ocurrido un error al obtener las actas para la placa ingresada");
+			return Response.status(COD_ERROR_VALIDACION).entity(lstMensajesValidacion)
+					.type(MediaType.APPLICATION_JSON_TYPE.withCharset(UTF_8)).build();
+		}
+
+	}
    @GET
    @Path("/e/acta/{coTipoActa}-{codPlaca}")
    @Produces({ MediaType.APPLICATION_JSON })
