@@ -13,32 +13,29 @@ import javax.persistence.Id;
 
 @Entity
 public class DeclExpFacil implements java.io.Serializable {
-	
-    /**
-	 * 
-	 */	
+
 	private static final long serialVersionUID = 8392420129257475535L;
 
 	@Id
 	@Column(name = "CADUA_PRECO")
-    private String codAduanaPreco;
+	private String codAduanaPreco;
 
 	@Column(name = "CPTOC_PRECO")
-    private String codPuestocontrolPreco;
+	private String codPuestocontrolPreco;
 
 	@Column(name = "FANNO_PRECO")
-    private Integer annoPreco;
+	private Integer annoPreco;
 
 	@Column(name = "NCORR_PRECO")
-    private String numcorrelativoPreco;
-		
-	
+	private String numcorrelativoPreco;
+
+
 	@Column(name = "CTIPO_ACTA")
-    private String codTipoActa;
-	
+	private String codTipoActa;
+
 	@Column(name = "FECHA_ACTA")
-    private String fecActa;
-	
+	private String fecActa;
+
 	public String getCodAduanaPreco() {
 		return codAduanaPreco;
 	}
@@ -90,10 +87,4 @@ public class DeclExpFacil implements java.io.Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-
-	
-	
-    
-	
 }

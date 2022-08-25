@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: exportafacil-valdef-configmap
-  namespace: default
+  namespace: controladuanero-exportafacil
 data:
 #habilitar log INFO or DEBUG
     logginglevel: INFO
