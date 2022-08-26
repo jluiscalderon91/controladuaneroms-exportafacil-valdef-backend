@@ -113,7 +113,8 @@ public enum EnumErrores {
     ERROR_VALIDACION_OBLIGATORIEDAD_1109("1109","Cantidad de guías no coincide con cantidad de bultos"),
     ERROR_VALIDACION_OBLIGATORIEDAD_1110("1110","Opción no disponible para envíos con más de 5 guías postales asociadas"),
     ERROR_VALIDACION_OBLIGATORIEDAD_1111("1111","Debe ingresar Año de solicitud"),
-    ERROR_VALIDACION_OBLIGATORIEDAD_1112("1112","Debe ingresar Número de solicitud");
+    ERROR_VALIDACION_OBLIGATORIEDAD_1112("1112","Debe ingresar Número de solicitud") ,
+    ERROR_VALIDACION_OBLIGATORIEDAD("422","Ha ocurrido un error");
 
     private EnumErrores(String cod, String msg) {
         this.cod = cod;

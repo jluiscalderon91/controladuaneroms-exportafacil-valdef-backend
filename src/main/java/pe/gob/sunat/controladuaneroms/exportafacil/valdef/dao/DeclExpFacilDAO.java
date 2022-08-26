@@ -20,6 +20,10 @@ public interface DeclExpFacilDAO extends BaseDao<DeclExpFacil, String> {
 	DeclExpFacil consultarDeclaracionExportaFacil(String annPresen, String numDeclaracion,
 												  String numGuiapostal, Date fecDeclaracionDesde, Date fecDeclaracionHasta, Date fecSolicitudDesde,
 												  Date fecSolicitudHasta, String codTipdoc, String numDocident, String codEstdua, String codEstarecti);
+	DeclExpFacil exportarResultadoDEF(String annPresen, String numDeclaracion,
+									  String numGuiapostal, Date fecDeclaracionDesde, Date fecDeclaracionHasta, Date fecSolicitudDesde,
+									  Date fecSolicitudHasta, String codTipdoc, String numDocident, String codEstdua, String codEstarecti);
+
 	DeclExpFacil consultarDetalladaDEF(String idDef);
 
 }

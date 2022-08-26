@@ -10,6 +10,7 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.main.config.ValidacionPciConfig;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.utils.UnprocessableEntityExceptionMapper;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest.ConsultaDeclaracionExportaFacilRestService;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest.PciAbstractRest;
 import pe.gob.sunat.tecnologiams.arquitectura.framework.microservices.SunatApplication;
@@ -21,9 +22,7 @@ public class ValidacionPciApplication extends SunatApplication<ValidacionPciConf
 
 	@Override
 	public void onRun(ValidacionPciConfig configuration, Environment environment) throws Exception {
-		environment.jersey().register(ConstraintViolationExceptionMapper.class);
-		environment.jersey().register(ObjectNotFoundExceptionMapper.class);
-		environment.jersey().register(GenericExceptionMapper.class);
+		environment.jersey().register(UnprocessableEntityExceptionMapper.class);
 		environment.jersey().register(ConsultaDeclaracionExportaFacilRestService.class);
 		environment.jersey().register(PciAbstractRest.class);
 		ValidacionPciConfig.loadConfig(configuration);

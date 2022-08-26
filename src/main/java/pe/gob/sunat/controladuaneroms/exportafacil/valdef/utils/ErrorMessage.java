@@ -4,24 +4,24 @@ import java.io.Serializable;
 
 public class ErrorMessage implements Serializable {
     private boolean success;
-    private String codError;
-    private String desError;
-    public ErrorMessage(boolean success, String codError, String desError) {
+    private String cod;
+    private String msg;
+    public ErrorMessage(boolean success, String cod, String msg) {
         this.success = success;
-        this.codError = codError;
-        this.desError = desError;
+        this.cod = cod;
+        this.msg = msg;
     }
-    public ErrorMessage(String codError, String desError) {
-        this.codError = codError;
-        this.desError = desError;
+    public ErrorMessage(String cod, String msg) {
+        this.cod = cod;
+        this.msg = msg;
     }
     public ErrorMessage(HTTPErrorEnum httpErrorEnum) {
-        this.codError = httpErrorEnum.getCode();
-        this.desError = httpErrorEnum.getMsg();
+        this.cod = httpErrorEnum.getCode();
+        this.msg = httpErrorEnum.getMsg();
     }
     public ErrorMessage(EnumErrores unprocessableErrorEnum) {
-        this.codError = unprocessableErrorEnum.getCodigo();
-        this.desError = unprocessableErrorEnum.getMensaje();
+        this.cod = unprocessableErrorEnum.getCodigo();
+        this.msg = unprocessableErrorEnum.getMensaje();
     }
     
     public boolean isSuccess() {
@@ -30,16 +30,16 @@ public class ErrorMessage implements Serializable {
 	public void setSuccess(boolean success) {
         this.success = success;
     }
-    public String getCodError() {
-        return codError;
+    public String getCod() {
+        return cod;
     }
-    public void setCodError(String codError) {
-        this.codError = codError;
+    public void setCod(String cod) {
+        this.cod = cod;
     }
-    public String getDesError() {
-        return desError;
+    public String getMsg() {
+        return msg;
     }
-    public void setDesError(String desError) {
-        this.desError = desError;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

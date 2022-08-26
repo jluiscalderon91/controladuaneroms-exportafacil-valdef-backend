@@ -2,19 +2,18 @@ package pe.gob.sunat.controladuaneroms.exportafacil.valdef.utils;
 
 import java.util.List;
 
-public class MessageResponse {
+public class ErrorResponse {
     private String cod;
     private String msg;
-    private List<EnumErrores> errors;
-
-    public MessageResponse(HTTPErrorEnum httpErrorEnum) {
+    private List<ErrorMessage> errors;
+    public ErrorResponse(HTTPErrorEnum httpErrorEnum) {
         this.cod = String.valueOf(httpErrorEnum.getCode());
         this.msg = httpErrorEnum.getMsg();
     }
-    public void setErrors(List<EnumErrores> errors) {
+    public void setErrors(List<ErrorMessage> errors) {
         this.errors = errors;
     }
-    public List<EnumErrores> getErrors() {
+    public List<ErrorMessage> getErrors() {
         return errors;
     }
     public String getCod() {

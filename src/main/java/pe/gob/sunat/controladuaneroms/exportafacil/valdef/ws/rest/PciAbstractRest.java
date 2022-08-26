@@ -17,7 +17,8 @@ public abstract class PciAbstractRest {
    
    protected static final Integer COD_ERROR_VALIDACION = 422;
    
-   @Inject protected ConsultaDeclaracionExportaFacilService consultaDeclaracionExportaFacilService;
+   @Inject
+   protected ConsultaDeclaracionExportaFacilService consultaDeclaracionExportaFacilService;
    
 
 

@@ -17,13 +17,13 @@ public class UnprocessableEntityException extends Exception {
     public UnprocessableEntityException(ErrorMessage... errors) {
         this.errors = Arrays.asList(errors);
     }
-    public UnprocessableEntityException addError(String desError) {
-        ErrorMessage errorDetail = new ErrorMessage(false, "999", desError);
+    public UnprocessableEntityException addError(String msg) {
+        ErrorMessage errorDetail = new ErrorMessage(false, "999", msg);
         errors.add(errorDetail);
         return this;
     }
-    public UnprocessableEntityException addError(boolean success, String codError, String desError) {
-        ErrorMessage errorDetail = new ErrorMessage(success, codError, desError);
+    public UnprocessableEntityException addError(boolean success, String cod, String msg) {
+        ErrorMessage errorDetail = new ErrorMessage(success, cod, msg);
         errors.add(errorDetail);
         return this;
     }

@@ -23,46 +23,46 @@ import java.util.List;
 
 public class JPADeclExpFacilDAO extends AbstractDao<DeclExpFacil, String> implements DeclExpFacilDAO {
 
-	@Inject
-	private UtilLog utilLog;
-	
-	@Inject
-	@Named("bdsigad")
-	protected EntityManager bdsigad;
+    @Inject
+    private UtilLog utilLog;
 
-	@Override
-	public List<DeclExpFacil> listarActas(String codAduana, String placa) {
-		StringBuilder sql = new StringBuilder();
+    @Inject
+    @Named("bdsigad")
+    protected EntityManager bdsigad;
 
-		sql.append(
-				"CADUA_PRECO, CPTOC_PRECO, FANNO_PRECO, NCORR_PRECO, CTIPO_ACTA, TO_DATE(FECHA_ACTA, 'YYYY/MM/DD')  FROM CAB_ACTAS WHERE CTIPO_ACTA= ? AND TMATR_EMTRA=? AND NELIM_REGIS='0'");
+    @Override
+    public List<DeclExpFacil> listarActas(String codAduana, String placa) {
+        StringBuilder sql = new StringBuilder();
 
-		List<DeclExpFacil> resultado = new java.util.ArrayList<>();
+        sql.append(
+                "CADUA_PRECO, CPTOC_PRECO, FANNO_PRECO, NCORR_PRECO, CTIPO_ACTA, TO_DATE(FECHA_ACTA, 'YYYY/MM/DD')  FROM CAB_ACTAS WHERE CTIPO_ACTA= ? AND TMATR_EMTRA=? AND NELIM_REGIS='0'");
 
-		try {
-			Query query = bdsigad.createNativeQuery(sql.toString(), DeclExpFacil.class);
-			query.setParameter(1, codAduana);
-			query.setParameter(1, placa);
-			resultado = findByQuery(query);
-		} catch (Exception ex) {
-			utilLog.imprimirLog(ConstantesUtils.LEVEL_ERROR, ex.getMessage());
-		}
+        List<DeclExpFacil> resultado = new java.util.ArrayList<>();
 
-		return resultado;
-	}
+        try {
+            Query query = bdsigad.createNativeQuery(sql.toString(), DeclExpFacil.class);
+            query.setParameter(1, codAduana);
+            query.setParameter(1, placa);
+            resultado = findByQuery(query);
+        } catch (Exception ex) {
+            utilLog.imprimirLog(ConstantesUtils.LEVEL_ERROR, ex.getMessage());
+        }
 
-	@Override
-	public DeclExpFacil consultarDeclaracionExportaFacil(String annPresen, String numDeclaracion, String numGuiapostal, Date fecDeclaracionDesde, Date fecDeclaracionHasta, Date fecSolicitudDesde, Date fecSolicitudHasta, String codTipdoc, String numDocident, String codEstdua, String codEstarecti) {
-		utilLog.imprimirLog(ConstantesUtils.LEVEL_INFO, "Inicio DeclExpFacilDAO - consultarDeclaracionExportaFacil");
-		DeclExpFacil declExpFacil = null;
-		StringBuilder sql = new StringBuilder();
+        return resultado;
+    }
 
-		sql.append(
-				"SELECT A.ID AS id, A.VALOR AS valor");
-		sql.append("FROM TABLITA A");
+    @Override
+    public DeclExpFacil consultarDeclaracionExportaFacil(String annPresen, String numDeclaracion, String numGuiapostal, Date fecDeclaracionDesde, Date fecDeclaracionHasta, Date fecSolicitudDesde, Date fecSolicitudHasta, String codTipdoc, String numDocident, String codEstdua, String codEstarecti) {
+        utilLog.imprimirLog(ConstantesUtils.LEVEL_INFO, "Inicio DeclExpFacilDAO - consultarDeclaracionExportaFacil");
+        DeclExpFacil declExpFacil = null;
+        StringBuilder sql = new StringBuilder();
 
-		try {
-			Query query = bdsigad.createNativeQuery(sql.toString(), DeclExpFacil.class);
+        sql.append(
+                "SELECT A.ID AS id, A.VALOR AS valor");
+        sql.append("FROM TABLITA A");
+
+        try {
+            Query query = bdsigad.createNativeQuery(sql.toString(), DeclExpFacil.class);
             /*query.setParameter(1, annPresen);
             query.setParameter(2, numDeclaracion);
             query.setParameter(3, numGuiapostal);
@@ -74,29 +74,34 @@ public class JPADeclExpFacilDAO extends AbstractDao<DeclExpFacil, String> implem
             query.setParameter(9, numDocident);
             query.setParameter(10, codEstdua);
             query.setParameter(11, codEstarecti);*/
-			//declExpFacil = (DeclExpFacil) StringUtil.jsonToList(StringUtil.getJson(query.getSingleResult()), DeclExpFacil.class);
-		} catch (NoResultException nre) {
-			utilLog.imprimirLog(ConstantesUtils.LEVEL_ERROR, nre.getMessage());
-			declExpFacil = null;
-		} catch (Exception e) {
-			utilLog.imprimirLog(ConstantesUtils.LEVEL_ERROR, e.getMessage());
-			declExpFacil = null;
-		}
-		return declExpFacil;
-	}
+            //declExpFacil = (DeclExpFacil) StringUtil.jsonToList(StringUtil.getJson(query.getSingleResult()), DeclExpFacil.class);
+        } catch (NoResultException nre) {
+            utilLog.imprimirLog(ConstantesUtils.LEVEL_ERROR, nre.getMessage());
+            declExpFacil = null;
+        } catch (Exception e) {
+            utilLog.imprimirLog(ConstantesUtils.LEVEL_ERROR, e.getMessage());
+            declExpFacil = null;
+        }
+        return declExpFacil;
+    }
 
-	@Override
-	public DeclExpFacil consultarDetalladaDEF(String idDef) {
-		return null;
-	}
+    @Override
+    public DeclExpFacil exportarResultadoDEF(String annPresen, String numDeclaracion, String numGuiapostal, Date fecDeclaracionDesde, Date fecDeclaracionHasta, Date fecSolicitudDesde, Date fecSolicitudHasta, String codTipdoc, String numDocident, String codEstdua, String codEstarecti) {
+        return null;
+    }
 
-	@Override
-	public EntityManager buildEntityManager() {
-		return bdsigad;
-	}
+    @Override
+    public DeclExpFacil consultarDetalladaDEF(String idDef) {
+        return null;
+    }
 
-	@Override
-	public Class<DeclExpFacil> provideEntityClass() {
-		return DeclExpFacil.class;
-	}
+    @Override
+    public EntityManager buildEntityManager() {
+        return bdsigad;
+    }
+
+    @Override
+    public Class<DeclExpFacil> provideEntityClass() {
+        return DeclExpFacil.class;
+    }
 }
