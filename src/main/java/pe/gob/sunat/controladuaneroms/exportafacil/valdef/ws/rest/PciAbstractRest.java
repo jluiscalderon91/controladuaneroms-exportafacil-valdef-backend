@@ -12,8 +12,8 @@ import pe.gob.sunat.controladuaneroms.exportafacil.valdef.services.ConsultaDecla
 import pe.gob.sunat.tecnologiams.arquitectura.framework.microservices.util.UtilLog;
 
 public abstract class PciAbstractRest {
-   
-	@Inject protected UtilLog utilLog;
+
+    @Inject protected UtilLog utilLog;
    
    protected static final Integer COD_ERROR_VALIDACION = 422;
    

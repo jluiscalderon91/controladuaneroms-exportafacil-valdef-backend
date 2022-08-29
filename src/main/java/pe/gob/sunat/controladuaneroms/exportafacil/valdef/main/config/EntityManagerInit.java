@@ -15,7 +15,7 @@ public class EntityManagerInit {
 	@Named("bdsigad")
 	public EntityManager createEntityManagerBdsigad() {
 		if (bdsigad == null) {
-			return getEntityManager("dsbddpr6");
+			return getEntityManager("bdsigad");
 		}
 		return bdsigad;
 	}
