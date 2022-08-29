@@ -14,6 +14,7 @@ import java.util.List;
 public interface ConsultaDeclaracionExportaFacilService {
 
 	DeclExpFacil prueba() throws UnprocessableEntityException;
+
 	/** @param codAduana */
 	List<DeclExpFacil> listarActas(String codAduana, String placa) throws UnprocessableEntityException;
 

@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 
 public class ConsultaDeclaracionExportaFacilServiceImpl implements ConsultaDeclaracionExportaFacilService {
@@ -66,24 +67,30 @@ public class ConsultaDeclaracionExportaFacilServiceImpl implements ConsultaDecla
     @Override
     public DeclExpFacil consultarDeclaracionExportaFacil(String annPresen, String numDeclaracion, String numGuiapostal, String fecDeclaracionDesde, String fecDeclaracionHasta, String fecSolicitudDesde, String fecSolicitudHasta, String codTipdoc, String numDocident, String codEstdua, String codEstarecti) throws UnprocessableEntityException {
 
+        try {
+            validarDatosExportaFacil(numDeclaracion, numGuiapostal, fecDeclaracionDesde, fecDeclaracionHasta, fecSolicitudDesde, fecSolicitudHasta, codTipdoc, numDocident, codEstdua, codEstarecti);
+        } catch (Exception ex) {
+            validarDatosExportaFacil(numDeclaracion, numGuiapostal, fecDeclaracionDesde, fecDeclaracionHasta, fecSolicitudDesde, fecSolicitudHasta, codTipdoc, numDocident, codEstdua, codEstarecti);
+        }
+
         Date fecDeclaracionDesdeDate, fecDeclaracionHastaDate, fecSolicitudDesdeDate, fecSolicitudHastaDate;
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            if(!(fecDeclaracionDesde==null))
-            {
+            if (!(fecDeclaracionDesde == null)) {
                 fecDeclaracionDesdeDate = format.parse(fecDeclaracionDesde);
                 fecDeclaracionHastaDate = format.parse(fecDeclaracionHasta);
                 fecSolicitudDesdeDate = format.parse(fecSolicitudDesde);
                 fecSolicitudHastaDate = format.parse(fecSolicitudHasta);
-            }else{
-                fecDeclaracionDesdeDate =null;
-                fecDeclaracionHastaDate =null;
-                fecSolicitudDesdeDate =null;
-                fecSolicitudHastaDate =null;
+            } else {
+                fecDeclaracionDesdeDate = null;
+                fecDeclaracionHastaDate = null;
+                fecSolicitudDesdeDate = null;
+                fecSolicitudHastaDate = null;
             }
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+
         DeclExpFacil declExpFacil = declExpFacilDAO.consultarDeclaracionExportaFacil(annPresen, numDeclaracion,
                 numGuiapostal, fecDeclaracionDesdeDate, fecDeclaracionHastaDate, fecSolicitudDesdeDate,
                 fecSolicitudHastaDate, codTipdoc, numDocident, codEstdua, codEstarecti);
@@ -119,6 +126,62 @@ public class ConsultaDeclaracionExportaFacilServiceImpl implements ConsultaDecla
         List<ErrorMessage> listaErrores = new ArrayList<>();
         listaErrores.add(new ErrorMessage(cod, msg));
         throw new UnprocessableEntityException(listaErrores);
+    }
+
+
+    private List<ErrorMessage> validarDatosExportaFacil(String numDeclaracion, String numGuiapostal, String fecDeclaracionDesde, String fecDeclaracionHasta, String fecSolicitudDesde, String fecSolicitudHasta, String codTipdoc, String numDocident, String codEstdua, String codEstarecti) throws UnprocessableEntityException {
+        List<ErrorMessage> listaErrores = new ArrayList<>();
+        if (Objects.isNull(numDeclaracion) || numDeclaracion.isEmpty()) {
+            listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getCodigo(),
+                    EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getMensaje()));
+            throw new UnprocessableEntityException(listaErrores);
+        }
+        if (Objects.isNull(numGuiapostal) || numGuiapostal.isEmpty()) {
+            listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1003.getCodigo(),
+                    EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1003.getMensaje()));
+            throw new UnprocessableEntityException(listaErrores);
+        }
+        if (Objects.isNull(fecDeclaracionDesde) || fecDeclaracionDesde.isEmpty()) {
+            listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getCodigo(),
+                    EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getMensaje()));
+            throw new UnprocessableEntityException(listaErrores);
+        }
+        if (Objects.isNull(fecDeclaracionHasta) || fecDeclaracionHasta.isEmpty()) {
+            listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getCodigo(),
+                    EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getMensaje()));
+            throw new UnprocessableEntityException(listaErrores);
+        }
+        if (Objects.isNull(fecSolicitudDesde) || fecSolicitudDesde.isEmpty()) {
+            listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getCodigo(),
+                    EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getMensaje()));
+            throw new UnprocessableEntityException(listaErrores);
+        }
+        if (Objects.isNull(fecSolicitudHasta) || fecSolicitudHasta.isEmpty()) {
+            listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getCodigo(),
+                    EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getMensaje()));
+            throw new UnprocessableEntityException(listaErrores);
+        }
+        if (Objects.isNull(codTipdoc) || codTipdoc.isEmpty()) {
+            listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getCodigo(),
+                    EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getMensaje()));
+            throw new UnprocessableEntityException(listaErrores);
+        }
+        if (Objects.isNull(numDocident) || numDocident.isEmpty()) {
+            listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getCodigo(),
+                    EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getMensaje()));
+            throw new UnprocessableEntityException(listaErrores);
+        }
+        if (Objects.isNull(codEstdua) || codEstdua.isEmpty()) {
+            listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getCodigo(),
+                    EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getMensaje()));
+            throw new UnprocessableEntityException(listaErrores);
+        }
+        if (Objects.isNull(codEstarecti) || codEstarecti.isEmpty()) {
+            listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getCodigo(),
+                    EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getMensaje()));
+            throw new UnprocessableEntityException(listaErrores);
+        }
+        return listaErrores;
     }
 
 }
