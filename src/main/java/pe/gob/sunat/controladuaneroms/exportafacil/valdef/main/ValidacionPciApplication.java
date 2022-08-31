@@ -11,12 +11,11 @@ import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.main.config.ValidacionPciConfig;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.utils.UnprocessableEntityExceptionMapper;
-import pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest.ConsultaDeclaracionExportaFacilRestService;
-import pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest.PciAbstractRest;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest.catalogo.CatalogoRestService;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest.catalogo.PciCatalogoAbstractRest;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest.consultadeclaracion.ConsultaDeclaracionExportaFacilRestService;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest.consultadeclaracion.PciAbstractRest;
 import pe.gob.sunat.tecnologiams.arquitectura.framework.microservices.SunatApplication;
-import pe.gob.sunat.tecnologiams.arquitectura.framework.microservices.exception.ConstraintViolationExceptionMapper;
-import pe.gob.sunat.tecnologiams.arquitectura.framework.microservices.exception.GenericExceptionMapper;
-import pe.gob.sunat.tecnologiams.arquitectura.framework.microservices.exception.ObjectNotFoundExceptionMapper;
 
 public class ValidacionPciApplication extends SunatApplication<ValidacionPciConfig> {
 
@@ -25,6 +24,8 @@ public class ValidacionPciApplication extends SunatApplication<ValidacionPciConf
 		environment.jersey().register(UnprocessableEntityExceptionMapper.class);
 		environment.jersey().register(ConsultaDeclaracionExportaFacilRestService.class);
 		environment.jersey().register(PciAbstractRest.class);
+		environment.jersey().register(CatalogoRestService.class);
+		environment.jersey().register(PciCatalogoAbstractRest.class);
 		ValidacionPciConfig.loadConfig(configuration);
 	}
 	

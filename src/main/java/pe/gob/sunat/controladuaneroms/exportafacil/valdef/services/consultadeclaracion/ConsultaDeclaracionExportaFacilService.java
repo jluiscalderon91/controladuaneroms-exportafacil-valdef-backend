@@ -4,7 +4,7 @@
  * Purpose: Defines the Interface ConsultaDeclaracionExportaFacilService
  ***********************************************************************/
 
-package pe.gob.sunat.controladuaneroms.exportafacil.valdef.services;
+package pe.gob.sunat.controladuaneroms.exportafacil.valdef.services.consultadeclaracion;
 
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.bean.DeclExpFacilBean;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.utils.UnprocessableEntityException;

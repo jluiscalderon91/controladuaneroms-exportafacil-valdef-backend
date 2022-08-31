@@ -4,7 +4,7 @@
  * Purpose: Defines the Class ConsultaDeclaracionExportaFacilRestService
  ***********************************************************************/
 
-package pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest;
+package pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest.consultadeclaracion;
 
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.bean.DeclExpFacilBean;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.utils.UnprocessableEntityException;

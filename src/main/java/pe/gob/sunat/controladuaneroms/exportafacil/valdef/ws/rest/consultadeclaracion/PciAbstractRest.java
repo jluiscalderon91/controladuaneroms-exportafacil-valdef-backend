@@ -4,11 +4,11 @@
  * Purpose: Defines the Class PciAbstractRest
  ***********************************************************************/
 
-package pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest;
+package pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest.consultadeclaracion;
 
 import javax.inject.Inject;
 
-import pe.gob.sunat.controladuaneroms.exportafacil.valdef.services.ConsultaDeclaracionExportaFacilService;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.services.consultadeclaracion.ConsultaDeclaracionExportaFacilService;
 import pe.gob.sunat.tecnologiams.arquitectura.framework.microservices.util.UtilLog;
 
 public abstract class PciAbstractRest {

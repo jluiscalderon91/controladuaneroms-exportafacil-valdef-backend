@@ -4,20 +4,18 @@
  * Purpose: Defines the Class ConsultaDeclaracionExportaFacilServiceImpl
  ***********************************************************************/
 
-package pe.gob.sunat.controladuaneroms.exportafacil.valdef.services.impl;
+package pe.gob.sunat.controladuaneroms.exportafacil.valdef.services.consultadeclaracion.impl;
 
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao.DeclExpFacilDAO;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao.ParticipanteDocDAO;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.model.DeclExpFacil;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.bean.DeclExpFacilBean;
-import pe.gob.sunat.controladuaneroms.exportafacil.valdef.services.ConsultaDeclaracionExportaFacilService;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.services.consultadeclaracion.ConsultaDeclaracionExportaFacilService;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.utils.EnumErrores;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.utils.ErrorMessage;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.utils.UnprocessableEntityException;
 
 import javax.inject.Inject;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
