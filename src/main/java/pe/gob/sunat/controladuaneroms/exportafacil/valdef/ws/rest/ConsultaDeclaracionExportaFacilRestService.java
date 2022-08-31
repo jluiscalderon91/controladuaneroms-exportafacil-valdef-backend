@@ -6,7 +6,7 @@
 
 package pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest;
 
-import pe.gob.sunat.controladuaneroms.exportafacil.valdef.domain.DeclExpFacil;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.bean.DeclExpFacilBean;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.utils.UnprocessableEntityException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,10 +33,10 @@ public class ConsultaDeclaracionExportaFacilRestService extends PciAbstractRest 
 													 @QueryParam("codEstarecti") String codEstarecti) throws UnprocessableEntityException {
 		boolean noHayidDef = idDef == null || idDef.trim().isEmpty();
 		if (!noHayidDef) {
-			DeclExpFacil declExpFacil = consultaDeclaracionExportaFacilService.consultarDetalladaDEF(idDef);
+			DeclExpFacilBean declExpFacil = consultaDeclaracionExportaFacilService.consultarDetalladaDEF(idDef);
 			return Response.ok(declExpFacil).build();
 		} else {
-			DeclExpFacil declExpFacil = consultaDeclaracionExportaFacilService.consultarDeclaracionExportaFacil(annPresen, numDeclaracion,
+			DeclExpFacilBean declExpFacil = consultaDeclaracionExportaFacilService.consultarDeclaracionExportaFacil(annPresen, numDeclaracion,
 					numGuiapostal, fecDeclaracionDesde, fecDeclaracionHasta, fecSolicitudDesde, fecSolicitudHasta, codTipdoc, numDocident, codEstdua, codEstarecti);
 			return Response.ok(declExpFacil).build();
 		}
@@ -54,18 +54,16 @@ public class ConsultaDeclaracionExportaFacilRestService extends PciAbstractRest 
 										 @QueryParam("numDocident") String numDocident, @QueryParam("codEstdua") String codEstdua,
 										 @QueryParam("codEstarecti") String codEstarecti) throws UnprocessableEntityException {
 
-		DeclExpFacil declExpFacil = consultaDeclaracionExportaFacilService.exportarResultadoDEF(annPresen, numDeclaracion,
+		DeclExpFacilBean declExpFacil = consultaDeclaracionExportaFacilService.exportarResultadoDEF(annPresen, numDeclaracion,
 				numGuiapostal, fecDeclaracionDesde, fecDeclaracionHasta, fecSolicitudDesde, fecSolicitudHasta, codTipdoc, numDocident, codEstdua, codEstarecti);
 		return Response.ok(declExpFacil).build();
-
-
 	}
 
 	@GET
 	@Path("/e/prueba")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response prueba()  throws UnprocessableEntityException {
-		DeclExpFacil declExpFacil = consultaDeclaracionExportaFacilService.prueba();
+		DeclExpFacilBean declExpFacil = consultaDeclaracionExportaFacilService.prueba();
 		return Response.ok(declExpFacil).build();
 	}
    @GET
@@ -73,7 +71,7 @@ public class ConsultaDeclaracionExportaFacilRestService extends PciAbstractRest 
    @Produces({ MediaType.APPLICATION_JSON })
    public Response listarActas(@PathParam("codAduana") String codAduana,@PathParam("placa") String placa) throws UnprocessableEntityException {
 
-	   List<DeclExpFacil> lstActa = this.consultaDeclaracionExportaFacilService.listarActas(codAduana, placa);
+	   List<DeclExpFacilBean> lstActa = this.consultaDeclaracionExportaFacilService.listarActas(codAduana, placa);
 	   return Response.ok(lstActa).build();
 
    }

@@ -6,7 +6,7 @@
 
 package pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao;
 
-import pe.gob.sunat.controladuaneroms.exportafacil.valdef.domain.DeclExpFacil;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.model.DeclExpFacil;
 import pe.gob.sunat.tecnologiams.arquitectura.framework.jpa.dao.BaseDao;
 
 import java.util.Date;

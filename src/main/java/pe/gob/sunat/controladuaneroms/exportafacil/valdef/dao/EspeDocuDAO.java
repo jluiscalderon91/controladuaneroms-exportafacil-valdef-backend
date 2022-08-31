@@ -1,12 +1,11 @@
 /***********************************************************************
- * Module:  ParticipanteDocDAO.java
+ * Module:  EspeDocuDAO.java
  * Author:  jvillavicencio
- * Purpose: Defines the Interface ParticipanteDocDAO
+ * Purpose: Defines the Interface EspeDocuDAO
  ***********************************************************************/
 
 package pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao;
 
-public interface ParticipanteDocDAO {
+public interface EspeDocuDAO {
 
-    Boolean consultarDocumentIdent(String numDoc);
 }

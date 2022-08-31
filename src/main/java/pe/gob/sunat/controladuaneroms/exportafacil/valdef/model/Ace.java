@@ -1,11 +1,12 @@
 /***********************************************************************
- * Module:  CabDeclaraDAO.java
+ * Module:  Ace.java
  * Author:  jvillavicencio
- * Purpose: Defines the Interface CabDeclaraDAO
+ * Purpose: Defines the Class Ace
  ***********************************************************************/
 
-package pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao;
+package pe.gob.sunat.controladuaneroms.exportafacil.valdef.model;
 
-public interface CabDeclaraDAO {
+public class Ace {
+
 
 }

@@ -1,12 +1,10 @@
 /***********************************************************************
- * Module:  ParticipanteDocDAO.java
+ * Module:  ProsusmanifDAO.java
  * Author:  jvillavicencio
- * Purpose: Defines the Interface ParticipanteDocDAO
+ * Purpose: Defines the Interface ProsusmanifDAO
  ***********************************************************************/
 
 package pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao;
 
-public interface ParticipanteDocDAO {
-
-    Boolean consultarDocumentIdent(String numDoc);
+public interface ProsusmanifDAO {
 }

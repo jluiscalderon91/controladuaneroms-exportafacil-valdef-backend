@@ -4,20 +4,12 @@
  * Purpose: Defines the Class ParticipanteDoc
  ***********************************************************************/
 
-package pe.gob.sunat.controladuaneroms.exportafacil.valdef.domain;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
-import java.util.Date;
+package pe.gob.sunat.controladuaneroms.exportafacil.valdef.model;
 
 public class ParticipanteDoc {
 
-    private static final long serialVersionUID = 8392420129257475535L;
-
-    @Column(name = "idExportador")
     private String idExportador;
 
-    @Column(name = "nomRazonsocial")
     private String nomRazonsocial;
 
     public String getIdExportador() {
@@ -36,11 +28,4 @@ public class ParticipanteDoc {
         this.nomRazonsocial = nomRazonsocial;
     }
 
-    @Override
-    public String toString() {
-        return "ParticipanteDoc{" +
-                "idExportador='" + idExportador + '\'' +
-                ", nomRazonsocial='" + nomRazonsocial + '\'' +
-                '}';
-    }
 }

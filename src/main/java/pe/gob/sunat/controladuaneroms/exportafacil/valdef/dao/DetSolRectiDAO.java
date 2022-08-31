@@ -1,12 +1,11 @@
 /***********************************************************************
- * Module:  ParticipanteDocDAO.java
+ * Module:  DetSolRectiDAO.java
  * Author:  jvillavicencio
- * Purpose: Defines the Interface ParticipanteDocDAO
+ * Purpose: Defines the Interface DetSolRectiDAO
  ***********************************************************************/
 
 package pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao;
 
-public interface ParticipanteDocDAO {
+public interface DetSolRectiDAO {
 
-    Boolean consultarDocumentIdent(String numDoc);
 }

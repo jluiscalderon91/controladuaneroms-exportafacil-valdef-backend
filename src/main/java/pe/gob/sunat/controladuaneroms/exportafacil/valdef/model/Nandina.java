@@ -1,11 +1,12 @@
 /***********************************************************************
- * Module:  CabDeclaraDAO.java
+ * Module:  Nandina.java
  * Author:  jvillavicencio
- * Purpose: Defines the Interface CabDeclaraDAO
+ * Purpose: Defines the Class Nandina
  ***********************************************************************/
 
-package pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao;
+package pe.gob.sunat.controladuaneroms.exportafacil.valdef.model;
 
-public interface CabDeclaraDAO {
+public class Nandina {
+
 
 }

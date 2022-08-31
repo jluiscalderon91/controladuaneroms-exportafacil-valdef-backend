@@ -1,12 +1,11 @@
 /***********************************************************************
- * Module:  ParticipanteDocDAO.java
+ * Module:  LegajoDeclaraDAO.java
  * Author:  jvillavicencio
- * Purpose: Defines the Interface ParticipanteDocDAO
+ * Purpose: Defines the Interface LegajoDeclaraDAO
  ***********************************************************************/
 
 package pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao;
 
-public interface ParticipanteDocDAO {
+public interface LegajoDeclaraDAO {
 
-    Boolean consultarDocumentIdent(String numDoc);
 }

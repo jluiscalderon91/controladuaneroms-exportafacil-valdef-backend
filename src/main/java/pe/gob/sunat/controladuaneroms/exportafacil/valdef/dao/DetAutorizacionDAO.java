@@ -1,12 +1,11 @@
 /***********************************************************************
- * Module:  ParticipanteDocDAO.java
+ * Module:  DetAutorizacionDAO.java
  * Author:  jvillavicencio
- * Purpose: Defines the Interface ParticipanteDocDAO
+ * Purpose: Defines the Interface DetAutorizacionDAO
  ***********************************************************************/
 
 package pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao;
 
-public interface ParticipanteDocDAO {
+public interface DetAutorizacionDAO {
 
-    Boolean consultarDocumentIdent(String numDoc);
 }
