@@ -6,7 +6,7 @@
 
 package pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest.catalogo;
 
-import pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest.consultadeclaracion.PciAbstractRest;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest.catalogo.PciCatalogoAbstractRest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -17,6 +17,6 @@ import java.util.List;
 
 @Path("/v1/despaduanero/catalogo")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-public class CatalogoRestService extends PciAbstractRest {
+public class CatalogoRestService extends PciCatalogoAbstractRest {
 
 }
