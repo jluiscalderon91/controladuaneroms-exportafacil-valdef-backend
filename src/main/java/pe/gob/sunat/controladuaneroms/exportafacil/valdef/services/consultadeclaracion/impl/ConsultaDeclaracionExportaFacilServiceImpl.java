@@ -6,8 +6,10 @@
 
 package pe.gob.sunat.controladuaneroms.exportafacil.valdef.services.consultadeclaracion.impl;
 
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao.CabDeclaraDAO;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao.DeclExpFacilDAO;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao.ParticipanteDocDAO;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.model.CabDeclara;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.model.DeclExpFacil;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.bean.DeclExpFacilBean;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.services.consultadeclaracion.ConsultaDeclaracionExportaFacilService;
@@ -29,6 +31,8 @@ public class ConsultaDeclaracionExportaFacilServiceImpl implements ConsultaDecla
     @Inject
     private DeclExpFacilDAO declExpFacilDAO;
     @Inject
+    private CabDeclaraDAO cabDeclaraDAO;
+    @Inject
     private ParticipanteDocDAO participanteDocDAO;
 
     @Override
@@ -43,9 +47,8 @@ public class ConsultaDeclaracionExportaFacilServiceImpl implements ConsultaDecla
         }
 
         List<DeclExpFacil> declExpLista = declExpFacilDAO.listarActas(codAduana, placa);
-        for (DeclExpFacil serie :declExpLista)
-        {
-            DeclExpFacilBean declExpFacil= new DeclExpFacilBean();
+        for (DeclExpFacil serie : declExpLista) {
+            DeclExpFacilBean declExpFacil = new DeclExpFacilBean();
             //Asignar Valores DAO - BEAN
             declExpFacil.setIdDef(declExpFacil.getIdDef());
 
@@ -61,12 +64,12 @@ public class ConsultaDeclaracionExportaFacilServiceImpl implements ConsultaDecla
         DeclExpFacilBean decla = new DeclExpFacilBean();
         try {
             //validacion mensaje
-            String idcad="1";
+            String idcad = "1";
             if (idcad == "1") {
                 mostrarErrores(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1001.getCodigo(),
                         EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1001.getMensaje());
             }
-            String id2cad="2";
+            String id2cad = "2";
             if (id2cad == "2") {
                 mostrarErrores(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getCodigo(),
                         EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1002.getMensaje());
@@ -80,20 +83,14 @@ public class ConsultaDeclaracionExportaFacilServiceImpl implements ConsultaDecla
     }
 
     @Override
-    public DeclExpFacilBean consultarDeclaracionExportaFacil(String annPresen, String numDeclaracion, String numGuiapostal, String fecDeclaracionDesde,
-                                                         String fecDeclaracionHasta, String fecSolicitudDesde, String fecSolicitudHasta, String codTipdoc,
-                                                         String numDocident, String codEstdua, String codEstarecti) throws UnprocessableEntityException {
+    public List<DeclExpFacilBean> consultarDeclaracionExportaFacil(String annPresen, String numDeclaracion, String numGuiapostal, String fecDeclaracionDesde,
+                                                             String fecDeclaracionHasta, String fecSolicitudDesde, String fecSolicitudHasta, String codTipdoc,
+                                                             String numDocident, String codEstdua, String codEstarecti) throws UnprocessableEntityException {
 
-        try {
-            validarDatosExportaFacil(numDeclaracion, numGuiapostal, fecDeclaracionDesde, fecDeclaracionHasta, fecSolicitudDesde, fecSolicitudHasta, codTipdoc,
-                    numDocident, codEstdua, codEstarecti);
-        } catch (Exception ex) {
-            validarDatosExportaFacil(numDeclaracion, numGuiapostal, fecDeclaracionDesde, fecDeclaracionHasta, fecSolicitudDesde, fecSolicitudHasta, codTipdoc,
-                    numDocident, codEstdua, codEstarecti);
-        }
         Date fecDeclaracionDesdeDate, fecDeclaracionHastaDate, fecSolicitudDesdeDate, fecSolicitudHastaDate;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
             if (!(fecDeclaracionDesde == null)) {
                 fecDeclaracionDesdeDate = format.parse(fecDeclaracionDesde);
                 fecDeclaracionHastaDate = format.parse(fecDeclaracionHasta);
@@ -109,28 +106,65 @@ public class ConsultaDeclaracionExportaFacilServiceImpl implements ConsultaDecla
             throw new RuntimeException(e);
         }
 
-        DeclExpFacilBean declExpFacil= new DeclExpFacilBean();
+        try {
+            validarDatosExportaFacil(numDeclaracion, numGuiapostal, fecDeclaracionDesdeDate, fecDeclaracionHastaDate, fecSolicitudDesdeDate, fecSolicitudHastaDate, codTipdoc, numDocident, codEstdua, codEstarecti);
+        } catch (Exception ex) {
+            validarDatosExportaFacil(numDeclaracion, numGuiapostal, fecDeclaracionDesdeDate, fecDeclaracionHastaDate, fecSolicitudDesdeDate, fecSolicitudHastaDate, codTipdoc, numDocident, codEstdua, codEstarecti);
+        }
 
-        DeclExpFacil declExp = declExpFacilDAO.consultarDeclaracionExportaFacil(annPresen, numDeclaracion,
+        List<DeclExpFacilBean> declExpFacilLista = new ArrayList<DeclExpFacilBean>();
+
+        /*DeclExpFacil declExp = declExpFacilDAO.consultarDeclaracionExportaFacil(annPresen, numDeclaracion,
+                numGuiapostal, fecDeclaracionDesdeDate, fecDeclaracionHastaDate, fecSolicitudDesdeDate,
+                fecSolicitudHastaDate, codTipdoc, numDocident, codEstdua, codEstarecti);*/
+
+        CabDeclara cabDeclara = cabDeclaraDAO.cabDeclara(annPresen, numDeclaracion,
                 numGuiapostal, fecDeclaracionDesdeDate, fecDeclaracionHastaDate, fecSolicitudDesdeDate,
                 fecSolicitudHastaDate, codTipdoc, numDocident, codEstdua, codEstarecti);
 
-        //Asignar Valores DAO - BEAN
-        declExpFacil.setIdDef(declExp.getIdDef());
+        DeclExpFacilBean declExpFacil[] = new DeclExpFacilBean[2];
+        for (int i = 0; i < 2; i++) {
+            declExpFacil[i] = new DeclExpFacilBean();
+            //Asignar Valores DAO - BEAN
+            //declExpFacil.setIdDef(cabDeclara.getIdDef());
 
-        return declExpFacil;
+            //Simulacion de Respuestas
+            try {
+                fecDeclaracionDesdeDate = format.parse("07/07/2022");
+                fecDeclaracionHastaDate = format.parse("07/07/2022");
+                fecSolicitudDesdeDate = format.parse("08/07/2022");
+            } catch (ParseException e) {
+
+            }
+            declExpFacil[i].setIdDef("235-2022-EP-00000001");
+            declExpFacil[i].setFecDeclaracion(fecDeclaracionDesdeDate);
+            declExpFacil[i].setCodEstdua("01");
+            declExpFacil[i].setFecAutlevante(fecDeclaracionHastaDate);
+            declExpFacil[i].setIdExportador("1-20100055237");
+            declExpFacil[i].setNomRazonsocial("ALICORP S.A.A.");
+            declExpFacil[i].setCntTotbultos(10);
+            declExpFacil[i].setCntPesobrutoTotal(100.3);
+            declExpFacil[i].setCodCanal("V");
+            declExpFacil[i].setCodPuerDesti("US");
+            declExpFacil[i].setMtoValoradu(545.80);
+            declExpFacil[i].setIdRectificacion("235-2022-2000");
+            declExpFacil[i].setCodEstarecti("01");
+            declExpFacil[i].setIdManifiesto("02-235-4-2021-000100");
+            declExpFacil[i].setNumDoctransporte("05230496503PE");
+            declExpFacil[i].setFecRegulariza(fecSolicitudDesdeDate);
+            declExpFacil[i].setIndFueraplazo("01");
+            declExpFacil[i].setCodFuncionario("5656");
+
+            declExpFacilLista.add(declExpFacil[i]);
+        }
+
+
+        return declExpFacilLista;
     }
 
     @Override
     public DeclExpFacilBean exportarResultadoDEF(String annPresen, String numDeclaracion, String numGuiapostal, String fecDeclaracionDesde, String fecDeclaracionHasta, String fecSolicitudDesde, String fecSolicitudHasta, String codTipdoc, String numDocident, String codEstdua, String codEstarecti) throws UnprocessableEntityException {
         Date fecDeclaracionDesdeDate, fecDeclaracionHastaDate, fecSolicitudDesdeDate, fecSolicitudHastaDate;
-
-        try {
-            validarDatosExportaFacil(numDeclaracion, numGuiapostal, fecDeclaracionDesde, fecDeclaracionHasta, fecSolicitudDesde, fecSolicitudHasta, codTipdoc, numDocident, codEstdua, codEstarecti);
-        } catch (Exception ex) {
-            validarDatosExportaFacil(numDeclaracion, numGuiapostal, fecDeclaracionDesde, fecDeclaracionHasta, fecSolicitudDesde, fecSolicitudHasta, codTipdoc, numDocident, codEstdua, codEstarecti);
-        }
-
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             if (!(fecDeclaracionDesde == null)) {
@@ -148,7 +182,13 @@ public class ConsultaDeclaracionExportaFacilServiceImpl implements ConsultaDecla
             throw new RuntimeException(e);
         }
 
-        DeclExpFacilBean declExpFacil= new DeclExpFacilBean();
+        try {
+            validarDatosExportaFacil(numDeclaracion, numGuiapostal, fecDeclaracionDesdeDate, fecDeclaracionHastaDate, fecSolicitudDesdeDate, fecSolicitudHastaDate, codTipdoc, numDocident, codEstdua, codEstarecti);
+        } catch (Exception ex) {
+            validarDatosExportaFacil(numDeclaracion, numGuiapostal, fecDeclaracionDesdeDate, fecDeclaracionHastaDate, fecSolicitudDesdeDate, fecSolicitudHastaDate, codTipdoc, numDocident, codEstdua, codEstarecti);
+        }
+
+        DeclExpFacilBean declExpFacil = new DeclExpFacilBean();
 
         DeclExpFacil declExp = declExpFacilDAO.exportarResultadoDEF(annPresen, numDeclaracion,
                 numGuiapostal, fecDeclaracionDesdeDate, fecDeclaracionHastaDate, fecSolicitudDesdeDate,
@@ -169,7 +209,7 @@ public class ConsultaDeclaracionExportaFacilServiceImpl implements ConsultaDecla
             validarDatosExportaFacilDetallada(idDef);
         }
 
-        DeclExpFacilBean declExpFacil= new DeclExpFacilBean();
+        DeclExpFacilBean declExpFacil = new DeclExpFacilBean();
 
         DeclExpFacil declExp = declExpFacilDAO.consultarDetalladaDEF(idDef);
 
@@ -179,8 +219,8 @@ public class ConsultaDeclaracionExportaFacilServiceImpl implements ConsultaDecla
         return declExpFacil;
     }
 
-    private void validarDatosExportaFacil(String numDeclaracion, String numGuiapostal, String fecDeclaracionDesde, String fecDeclaracionHasta,
-                                          String fecSolicitudDesde, String fecSolicitudHasta, String codTipdoc, String numDocident, String codEstdua,
+    private void validarDatosExportaFacil(String numDeclaracion, String numGuiapostal, Date fecDeclaracionDesde, Date fecDeclaracionHasta,
+                                          Date fecSolicitudDesde, Date fecSolicitudHasta, String codTipdoc, String numDocident, String codEstdua,
                                           String codEstarecti) throws UnprocessableEntityException {
         List<ErrorMessage> listaErrores = new ArrayList<>();
         if (Objects.isNull(numDeclaracion) || numDeclaracion.isEmpty()) {
@@ -191,21 +231,29 @@ public class ConsultaDeclaracionExportaFacilServiceImpl implements ConsultaDecla
             listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1052.getCodigo(),
                     EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1052.getMensaje()));
         }
-        if (Objects.isNull(fecDeclaracionDesde) || fecDeclaracionDesde.isEmpty()) {
-            listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1057.getCodigo(),
-                    EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1057.getMensaje()));
+
+        if (!Objects.isNull(fecDeclaracionHasta) || !Objects.isNull(fecDeclaracionDesde)) {
+            if (fecDeclaracionHasta.before(fecDeclaracionDesde)) {
+                listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1057.getCodigo(),
+                        EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1057.getMensaje()));
+            }
+            int dias = (int) ((fecDeclaracionHasta.getTime() - fecDeclaracionDesde.getTime()) / 86400000);
+            if (dias > 7) {
+                listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1058.getCodigo(),
+                        EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1058.getMensaje()));
+            }
         }
-        if (Objects.isNull(fecDeclaracionHasta) || fecDeclaracionHasta.isEmpty()) {
-            listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1058.getCodigo(),
-                    EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1058.getMensaje()));
-        }
-        if (Objects.isNull(fecSolicitudDesde) || fecSolicitudDesde.isEmpty()) {
-            listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1061.getCodigo(),
-                    EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1061.getMensaje()));
-        }
-        if (Objects.isNull(fecSolicitudHasta) || fecSolicitudHasta.isEmpty()) {
-            listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1062.getCodigo(),
-                    EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1062.getMensaje()));
+
+        if (!Objects.isNull(fecSolicitudHasta) || !Objects.isNull(fecSolicitudDesde)) {
+            if (fecSolicitudHasta.before(fecSolicitudDesde)) {
+                listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1057.getCodigo(),
+                        EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1057.getMensaje()));
+            }
+            int dias = (int) ((fecSolicitudHasta.getTime() - fecSolicitudDesde.getTime()) / 86400000);
+            if (dias > 7) {
+                listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1058.getCodigo(),
+                        EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1058.getMensaje()));
+            }
         }
         if (Objects.isNull(codTipdoc) || codTipdoc.isEmpty()) {
             listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1059.getCodigo(),
@@ -219,15 +267,16 @@ public class ConsultaDeclaracionExportaFacilServiceImpl implements ConsultaDecla
             listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1063.getCodigo(),
                     EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1063.getMensaje()));
         }
+
         if (codTipdoc.equals("01") || codTipdoc.equals("1") || codTipdoc.equals("06") || codTipdoc.equals("6")) {
             Boolean consulta = participanteDocDAO.consultarDocumentIdent(numDocident);
             if (!consulta) {
                 if (codTipdoc.equals("01") || codTipdoc.equals("1")) {
                     listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_INTEGRIDAD_1065.getCodigo(),
-                            EnumErrores.ERROR_VALIDACION_INTEGRIDAD_1065.getMensaje()));
+                            EnumErrores.ERROR_VALIDACION_INTEGRIDAD_1065.getMensaje().replace("{numDocExpor}", numDocident)));
                 } else if (codTipdoc.equals("06") || codTipdoc.equals("6")) {
                     listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_INTEGRIDAD_1064.getCodigo(),
-                            EnumErrores.ERROR_VALIDACION_INTEGRIDAD_1064.getMensaje()));
+                            EnumErrores.ERROR_VALIDACION_INTEGRIDAD_1064.getMensaje().replace("{numDocExpor}", numDocident)));
                 } else {
                     listaErrores.add(new ErrorMessage(EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1072.getCodigo(),
                             EnumErrores.ERROR_VALIDACION_OBLIGATORIEDAD_1072.getMensaje()));

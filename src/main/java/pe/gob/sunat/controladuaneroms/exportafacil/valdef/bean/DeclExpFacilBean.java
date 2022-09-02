@@ -31,13 +31,13 @@ public class DeclExpFacilBean {
 
     private int cntTotbultos;
 
-    private int cntPesobrutoTotal;
+    private Double cntPesobrutoTotal;
 
     private String codCanal;
 
     private String codPuerDesti;
 
-    private int mtoValoradu;
+    private Double mtoValoradu;
 
     private String idRectificacion;
 
@@ -109,11 +109,11 @@ public class DeclExpFacilBean {
         this.cntTotbultos = cntTotbultos;
     }
 
-    public int getCntPesobrutoTotal() {
+    public Double getCntPesobrutoTotal() {
         return cntPesobrutoTotal;
     }
 
-    public void setCntPesobrutoTotal(int cntPesobrutoTotal) {
+    public void setCntPesobrutoTotal(Double cntPesobrutoTotal) {
         this.cntPesobrutoTotal = cntPesobrutoTotal;
     }
 
@@ -133,11 +133,11 @@ public class DeclExpFacilBean {
         this.codPuerDesti = codPuerDesti;
     }
 
-    public int getMtoValoradu() {
+    public Double getMtoValoradu() {
         return mtoValoradu;
     }
 
-    public void setMtoValoradu(int mtoValoradu) {
+    public void setMtoValoradu(Double mtoValoradu) {
         this.mtoValoradu = mtoValoradu;
     }
 

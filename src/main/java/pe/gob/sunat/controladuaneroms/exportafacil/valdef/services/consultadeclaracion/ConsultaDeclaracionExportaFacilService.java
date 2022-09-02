@@ -18,7 +18,7 @@ public interface ConsultaDeclaracionExportaFacilService {
 	/** @param codAduana */
 	List<DeclExpFacilBean> listarActas(String codAduana, String placa) throws UnprocessableEntityException;
 
-	DeclExpFacilBean consultarDeclaracionExportaFacil(String annPresen, String numDeclaracion,
+	List<DeclExpFacilBean> consultarDeclaracionExportaFacil(String annPresen, String numDeclaracion,
 												  String numGuiapostal, String fecDeclaracionDesde, String fecDeclaracionHasta, String fecSolicitudDesde,
 												  String fecSolicitudHasta, String codTipdoc, String numDocident, String codEstdua, String codEstarecti) throws UnprocessableEntityException;
 

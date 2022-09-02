@@ -36,7 +36,7 @@ public class ConsultaDeclaracionExportaFacilRestService extends PciAbstractRest 
 			DeclExpFacilBean declExpFacil = consultaDeclaracionExportaFacilService.consultarDetalladaDEF(idDef);
 			return Response.ok(declExpFacil).build();
 		} else {
-			DeclExpFacilBean declExpFacil = consultaDeclaracionExportaFacilService.consultarDeclaracionExportaFacil(annPresen, numDeclaracion,
+			List<DeclExpFacilBean>  declExpFacil = consultaDeclaracionExportaFacilService.consultarDeclaracionExportaFacil(annPresen, numDeclaracion,
 					numGuiapostal, fecDeclaracionDesde, fecDeclaracionHasta, fecSolicitudDesde, fecSolicitudHasta, codTipdoc, numDocident, codEstdua, codEstarecti);
 			return Response.ok(declExpFacil).build();
 		}
@@ -54,7 +54,7 @@ public class ConsultaDeclaracionExportaFacilRestService extends PciAbstractRest 
 										 @QueryParam("numDocident") String numDocident, @QueryParam("codEstdua") String codEstdua,
 										 @QueryParam("codEstarecti") String codEstarecti) throws UnprocessableEntityException {
 
-		DeclExpFacilBean declExpFacil = consultaDeclaracionExportaFacilService.exportarResultadoDEF(annPresen, numDeclaracion,
+		 DeclExpFacilBean declExpFacil = consultaDeclaracionExportaFacilService.exportarResultadoDEF(annPresen, numDeclaracion,
 				numGuiapostal, fecDeclaracionDesde, fecDeclaracionHasta, fecSolicitudDesde, fecSolicitudHasta, codTipdoc, numDocident, codEstdua, codEstarecti);
 		return Response.ok(declExpFacil).build();
 	}
