@@ -6,6 +6,9 @@
 
 package pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao.jpa;
 
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.bean.AceBean;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.bean.ExpDetPDFBean;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.bean.RiesgoBean;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao.DeclExpFacilDAO;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.model.DeclExpFacil;
 import pe.gob.sunat.tecnologiams.arquitectura.framework.common.util.ConstantesUtils;
@@ -17,6 +20,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -91,6 +99,78 @@ public class JPADeclExpFacilDAO extends AbstractDao<DeclExpFacil, String> implem
     @Override
     public DeclExpFacil consultarDetalladaDEF(String idDef) {
         return null;
+    }
+
+    @Override
+    public ExpDetPDFBean exportarDetalladaPDF(String idDef) {
+        utilLog.imprimirLog(ConstantesUtils.LEVEL_INFO, "Inicio DeclExpFacilDAO - consultarDetalladaRiesgo");
+        ExpDetPDFBean riesgoBean = new ExpDetPDFBean();
+        try {
+            Path root = FileSystems.getDefault().getPath("").toAbsolutePath();
+            Path pdfPath = Paths.get(root.toString() + "/src/main/resources/document-test.pdf");
+            byte[] pdf = Files.readAllBytes(pdfPath);
+            String encodedString = Base64.getEncoder().encodeToString(pdf);
+            riesgoBean.setNomArchivo("archivo.pdf");
+            riesgoBean.setDesMimeType("application/pdf");
+            riesgoBean.setArchivo(encodedString);
+
+        } catch (NoResultException nre) {
+            utilLog.imprimirLog(ConstantesUtils.LEVEL_ERROR, nre.getMessage());
+            riesgoBean = null;
+        } catch (Exception e) {
+            utilLog.imprimirLog(ConstantesUtils.LEVEL_ERROR, e.getMessage());
+            riesgoBean = null;
+        }
+        return riesgoBean;
+    }
+
+    @Override
+    public RiesgoBean consultarDetalladaRiesgo(String idDef) {
+        utilLog.imprimirLog(ConstantesUtils.LEVEL_INFO, "Inicio DeclExpFacilDAO - consultarDetalladaRiesgo");
+        RiesgoBean riesgoBean = new RiesgoBean();
+        try {
+            riesgoBean.setIdDef("235-2022-EP-00000001");
+            riesgoBean.setCodCanal("V1");
+            riesgoBean.setCodMomentoRiesgo("EP11");
+            riesgoBean.setCodMotivoRiesgo("05");
+            riesgoBean.setSeleccionCodModelo("FMV");
+            riesgoBean.setSeleccionCodSerie("1");
+            riesgoBean.setSeleccionFraude("Valor FOB unitario menor a la referencia");
+            riesgoBean.setSeleccionDetalle("Verificar valor, cantidad y descripción de la mercancía");
+
+        } catch (NoResultException nre) {
+            utilLog.imprimirLog(ConstantesUtils.LEVEL_ERROR, nre.getMessage());
+            riesgoBean = null;
+        } catch (Exception e) {
+            utilLog.imprimirLog(ConstantesUtils.LEVEL_ERROR, e.getMessage());
+            riesgoBean = null;
+        }
+        return riesgoBean;
+    }
+
+    @Override
+    public AceBean consultarDetalladaACE(String idDef) {
+        utilLog.imprimirLog(ConstantesUtils.LEVEL_INFO, "Inicio DeclExpFacilDAO - consultarDetalladaACE");
+        AceBean aceBean = new AceBean();
+        try {
+            aceBean.setIdDef("235-2022-EP-00000001");
+            aceBean.setCodCanal("F");
+            aceBean.setNroAce("000133");
+            aceBean.setFecAce("03/07/2022 10:10:00");
+            aceBean.setCodEstadoAce("");
+            aceBean.setNroActaInsp("");
+            aceBean.setFecActaInsp("");
+            aceBean.setNroActaIncInmHal("");
+            aceBean.setFecActaIncInmHal("");
+
+        } catch (NoResultException nre) {
+            utilLog.imprimirLog(ConstantesUtils.LEVEL_ERROR, nre.getMessage());
+            aceBean = null;
+        } catch (Exception e) {
+            utilLog.imprimirLog(ConstantesUtils.LEVEL_ERROR, e.getMessage());
+            aceBean = null;
+        }
+        return aceBean;
     }
 
     @Override

@@ -1,22 +1,6 @@
-/***********************************************************************
- * Module:  AceBean.java
- * Author:  jvillavicencio
- * Purpose: Defines the Class AceBean
- ***********************************************************************/
+package pe.gob.sunat.controladuaneroms.exportafacil.valdef.model;
 
-package pe.gob.sunat.controladuaneroms.exportafacil.valdef.bean;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-
-import java.util.Date;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class AceBean {
-    private String idDef;
-
-    private String codCanal;
+public class InfoACE {
 
     private String nroAce;
 
@@ -31,22 +15,6 @@ public class AceBean {
     private String nroActaIncInmHal;
 
     private String fecActaIncInmHal;
-
-    public String getIdDef() {
-        return idDef;
-    }
-
-    public void setIdDef(String idDef) {
-        this.idDef = idDef;
-    }
-
-    public String getCodCanal() {
-        return codCanal;
-    }
-
-    public void setCodCanal(String codCanal) {
-        this.codCanal = codCanal;
-    }
 
     public String getNroAce() {
         return nroAce;

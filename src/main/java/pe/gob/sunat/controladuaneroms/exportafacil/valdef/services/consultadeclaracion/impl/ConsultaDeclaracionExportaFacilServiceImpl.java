@@ -6,11 +6,13 @@
 
 package pe.gob.sunat.controladuaneroms.exportafacil.valdef.services.consultadeclaracion.impl;
 
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.bean.AceBean;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.bean.ExpDetPDFBean;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.bean.RiesgoBean;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao.CabDeclaraDAO;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao.DeclExpFacilDAO;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.dao.ParticipanteDocDAO;
-import pe.gob.sunat.controladuaneroms.exportafacil.valdef.model.CabDeclara;
-import pe.gob.sunat.controladuaneroms.exportafacil.valdef.model.DeclExpFacil;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.model.*;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.bean.DeclExpFacilBean;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.services.consultadeclaracion.ConsultaDeclaracionExportaFacilService;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.utils.EnumErrores;
@@ -217,6 +219,82 @@ public class ConsultaDeclaracionExportaFacilServiceImpl implements ConsultaDecla
         declExpFacil.setIdDef(declExp.getIdDef());
 
         return declExpFacil;
+    }
+
+    @Override
+    public ExpDetPDF exportarDetalladaPDF(String idDef) throws UnprocessableEntityException {
+        try {
+            validarDatosExportaFacilDetallada(idDef);
+        } catch (Exception ex) {
+            validarDatosExportaFacilDetallada(idDef);
+        }
+
+        ExpDetPDF expDetPDF = new ExpDetPDF();
+
+        ExpDetPDFBean expDetPDFBean = declExpFacilDAO.exportarDetalladaPDF(idDef);
+
+        expDetPDF.setNomArchivo(expDetPDFBean.getNomArchivo());
+        expDetPDF.setDesMimeType(expDetPDFBean.getDesMimeType());
+        expDetPDF.setArchivo(expDetPDFBean.getArchivo());
+
+        return expDetPDF;
+    }
+
+    @Override
+    public Riesgo consultarDetalladaRiesgo(String idDef) throws UnprocessableEntityException {
+
+        try {
+            validarDatosExportaFacilDetallada(idDef);
+        } catch (Exception ex) {
+            validarDatosExportaFacilDetallada(idDef);
+        }
+
+        Riesgo Riesgo = new Riesgo();
+        InfoSeleccion infoSeleccion = new InfoSeleccion();
+        List<InfoSeleccion> infoSeleccions = new ArrayList<>();
+        RiesgoBean riesgoBean = declExpFacilDAO.consultarDetalladaRiesgo(idDef);
+        //Asignar Valores BEAN - MODEL
+        Riesgo.setIdDef(riesgoBean.getIdDef());
+        Riesgo.setCodCanal(riesgoBean.getCodCanal());
+        Riesgo.setCodMomentoRiesgo(riesgoBean.getCodMomentoRiesgo());
+        Riesgo.setCodMotivoRiesgo(riesgoBean.getCodMotivoRiesgo());
+
+        infoSeleccion.setSeleccionCodModelo(riesgoBean.getSeleccionCodModelo());
+        infoSeleccion.setSeleccionCodSerie(riesgoBean.getSeleccionCodSerie());
+        infoSeleccion.setSeleccionFraude(riesgoBean.getSeleccionFraude());
+        infoSeleccion.setSeleccionDetalle(riesgoBean.getSeleccionDetalle());
+        infoSeleccions.add(infoSeleccion);
+
+        Riesgo.setInfoSeleccion(infoSeleccions);
+        return Riesgo;
+    }
+
+    @Override
+    public Ace consultarDetalladaACE(String idDef) throws UnprocessableEntityException {
+
+        try {
+            validarDatosExportaFacilDetallada(idDef);
+        } catch (Exception ex) {
+            validarDatosExportaFacilDetallada(idDef);
+        }
+
+        Ace ace = new Ace();
+        InfoACE infoACE = new InfoACE();
+        List<InfoACE> infoACES = new ArrayList<>();
+        AceBean aceBean = declExpFacilDAO.consultarDetalladaACE(idDef);
+        //Asignar Valores BEAN - MODEL
+        ace.setIdDef(aceBean.getIdDef());
+        ace.setCodCanal(aceBean.getCodCanal());
+        infoACE.setNroAce(aceBean.getNroAce());
+        infoACE.setFecAce(aceBean.getFecAce());
+        infoACE.setCodEstadoAce(aceBean.getCodEstadoAce());
+        infoACE.setNroActaInsp(aceBean.getNroActaInsp());
+        infoACE.setFecActaInsp(aceBean.getFecActaInsp());
+        infoACE.setNroActaIncInmHal(aceBean.getNroActaIncInmHal());
+        infoACE.setFecActaIncInmHal(aceBean.getFecActaIncInmHal());
+        infoACES.add(infoACE);
+        ace.setInfoACES(infoACES);
+        return ace;
     }
 
     private void validarDatosExportaFacil(String numDeclaracion, String numGuiapostal, Date fecDeclaracionDesde, Date fecDeclaracionHasta,

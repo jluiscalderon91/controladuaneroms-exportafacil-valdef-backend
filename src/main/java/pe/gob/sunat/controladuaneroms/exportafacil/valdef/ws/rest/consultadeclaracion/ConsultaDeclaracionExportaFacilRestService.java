@@ -7,6 +7,9 @@
 package pe.gob.sunat.controladuaneroms.exportafacil.valdef.ws.rest.consultadeclaracion;
 
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.bean.DeclExpFacilBean;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.model.Ace;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.model.ExpDetPDF;
+import pe.gob.sunat.controladuaneroms.exportafacil.valdef.model.Riesgo;
 import pe.gob.sunat.controladuaneroms.exportafacil.valdef.utils.UnprocessableEntityException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,4 +79,34 @@ public class ConsultaDeclaracionExportaFacilRestService extends PciAbstractRest 
 
    }
 
+	// rest23 - jcalderon
+	@GET
+	@Path("/e/consultadeclaracion/exportarconsultadetalladapdf/def")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response exportarDetalladaPDF(@Context HttpServletRequest request,
+										 @QueryParam("idDef") String idDef) throws UnprocessableEntityException {
+
+		ExpDetPDF expDetPDF = consultaDeclaracionExportaFacilService.exportarDetalladaPDF(idDef);
+		return Response.ok(expDetPDF).build();
+	}
+
+	// rest24 - jcalderon
+	@GET
+	@Path("/e/consultadeclaracion/consultaDetalladaRiesgo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response consultarDetalleRiesgo(@Context HttpServletRequest request,
+													 @QueryParam("idDef") String idDef) throws UnprocessableEntityException {
+		Riesgo riesgo = consultaDeclaracionExportaFacilService.consultarDetalladaRiesgo(idDef);
+		return Response.ok(riesgo).build();
+	}
+
+	// rest25 - jcalderon
+	@GET
+	@Path("/e/consultadeclaracion/consultaDetalladaAce")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response consultarDetalleACE(@Context HttpServletRequest request,
+													 @QueryParam("idDef") String idDef) throws UnprocessableEntityException {
+		Ace ace = consultaDeclaracionExportaFacilService.consultarDetalladaACE(idDef);
+		return Response.ok(ace).build();
+	}
 }
